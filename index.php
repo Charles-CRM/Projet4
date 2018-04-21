@@ -1,9 +1,18 @@
 <?php
-require('./model/model.php');
 
+if(isset($_GET['page'])) {
+    if($_GET['page'] == 'chapter') {
+        if(isset($_GET['id']) && $_GET['id'] > 0)
+        {
+            require('./controller/chapter-controller.php');
+            echo "Ici devrait s'afficher un chapitre...";
+        } else {
+            echo "ERREUR : Identifiant de chapitre invalide.";
+        }
+    }
 
-$db = dbConnect();
+} else {
+    require('./controller/homepage-controller.php');
+}
 
-$allChapters = $db->query('SELECT * FROM chapters');
-
-require('./view/homepage.php');
+?>

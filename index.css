@@ -31,7 +31,7 @@ body {
 }
 
     header {
-
+        color: #222;
     }
 
         h1 {
@@ -81,12 +81,47 @@ body {
                 color: black;
             }
 
-            .post > h3 {
+            .post > .chapterLink {
                 margin: 0px 0px 15px 50px;
-                font-family: 'Arial Black', sans-serif;
+                display: block;
+                text-decoration: none;
+                color: inherit;
             }
+
+                .chapterLink > h3 {
+                    margin: 0px;
+                    font-family: 'Arial Black', sans-serif;
+                    color: inherit;
+                    font-size: 1.2rem;
+                }
 
             .post > p {
                 margin: 0px;
+                font-family: Garamond, serif;
                 text-align: justify;
+            }
+
+        #chapter {
+            box-sizing: border-box;
+            width: 100%;
+            margin-top: 30px;
+            padding: 40px;
+            color: #333;
+        }
+
+            #chapter > h3 {
+                width: 100%;
+                margin-bottom: 30px;
+                font-family: 'Viper Nora', 'Arial Black', sans-serif;
+                text-align: center;
+                font-size: 2rem;
+                color: #777;
+            }
+
+            #chapter > p {
+                margin: 0px;
+                text-align: justify;
+                font-family: Garamond, serif;
+                text-indent: 50px;
+                font-size: 1.2rem;
             }
