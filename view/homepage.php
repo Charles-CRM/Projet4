@@ -24,9 +24,3 @@
 
 
 <?php require('./view/footer.php'); ?>
-
-
-
-
-
-// Faire des liens comprenants les id
