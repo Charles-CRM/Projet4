@@ -26,3 +26,11 @@ function userLogin() {
         echo "ERREUR : Mauvais nom d'utilisateur ou mot de passe.";
     }
 }
+
+// Save a chapter
+function saveChapter() {
+    $db = dbConnect();
+    
+    $chapterQuery = $db->prepare('UPDATE chapters SET content = :content WHERE id = 11');
+    $chapterQuery->execute(array('content' => $_POST['tinymceContent']));
+}

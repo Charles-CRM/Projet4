@@ -1,0 +1,14 @@
+/*************************************************************************************
+
+            This stylesheet describe how the content of a chapter (paragraphs)
+            must be displayed in both frontend and backend.
+            
+*************************************************************************************/
+
+p {
+    margin: 0px;
+    text-align: justify;
+    font-family: Garamond, serif;
+    text-indent: 50px;
+    font-size: 1.2rem;
+}

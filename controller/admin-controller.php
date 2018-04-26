@@ -3,8 +3,14 @@ require('./model/model.php');
 
 
 
-if (!empty($_POST['login'])) {
+if (array_key_exists('login', $_POST)) {
     userLogin();
+}
+
+
+if (array_key_exists('tinymceContent', $_POST)) {
+    $tinymceContent = $_POST['tinymceContent'];
+    //saveChapter();
 }
 
 

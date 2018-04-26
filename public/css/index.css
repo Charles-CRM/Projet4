@@ -1,7 +1,23 @@
 @font-face {
     font-family: 'Viper Nora';
-    src: url('./public/fonts/Viper Nora.woff');
+    src: url('../fonts/Viper Nora.woff');
 }
+
+
+
+
+
+
+
+p {
+    margin: 0px;
+    padding: 0px;
+    font-family: Garamond, serif;
+}
+
+
+
+
 
 
 
@@ -11,7 +27,7 @@ body {
     height: 100%;
     margin: 0px;
     padding: 0px;
-    background-image: url(./public/images/alaska.jpg);
+    background-image: url(../images/alaska.jpg);
     background-size: auto;
     background-position: top center;
     background-attachment: fixed;
@@ -118,10 +134,18 @@ body {
                 color: #777;
             }
 
-            #chapter > p {
+            /*#chapter > p {
                 margin: 0px;
                 text-align: justify;
                 font-family: Garamond, serif;
                 text-indent: 50px;
                 font-size: 1.2rem;
-            }
+            }*/
+
+form {
+    margin: 0px 40px;
+}
+
+#tinymceTextarea {
+    /*width: 80%;*/
+}
