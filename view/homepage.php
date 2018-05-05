@@ -1,26 +1,25 @@
-<?php require('./view/background.php'); ?>
+<?php include('./view/background.php'); ?>
 
 
     <div id='postsList'>
        
     <?php
-        while ($chapter = $allChaptersQuery->fetch())
+        foreach ($chapters as $chapter)
         {
     ?>
        
         <div class='postContainer'>
             <div class='post'>
-                <a class='chapterLink' href='./?page=chapter&id=<?= $chapter['id'] ?>'><h3><?= $chapter['title'] ?></h3></a>
-                <p><?= $chapter['content'] ?></p>
+                <a class='chapterLink' href='./?page=chapter&id=<?= $chapter->id() ?>'><h3><?= $chapter->title() ?></h3></a>
+                <p><?= $chapter->content() ?></p>
             </div>
         </div>
         
     <?php
         }
-        $allChaptersQuery->closeCursor();
     ?>
         
     </div>
 
 
-<?php require('./view/footer.php'); ?>
+<?php include('./view/footer.php'); ?>

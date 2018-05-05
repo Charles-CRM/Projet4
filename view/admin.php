@@ -1,4 +1,4 @@
-<?php require('./view/background.php'); ?>
+<?php include('./view/background.php'); ?>
 
 
     <h2>Panneau d'administration</h2>
@@ -16,4 +16,4 @@
     <script src='./public/js/admin.js'></script>
 
 
-<?php require('./view/footer.php'); ?>
+<?php include('./view/footer.php'); ?>
