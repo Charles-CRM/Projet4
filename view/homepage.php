@@ -1,6 +1,10 @@
 <?php include('./view/background.php'); ?>
 
 
+    <?php
+        $pagination->display($_GET['p']);
+    ?>
+   
     <div id='postsList'>
        
     <?php
@@ -20,6 +24,11 @@
     ?>
         
     </div>
+    
+
+    <?php
+        $pagination->display($_GET['p']);
+    ?>
 
 
 <?php include('./view/footer.php'); ?>

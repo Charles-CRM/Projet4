@@ -74,7 +74,7 @@ body {
 
     #postsList {
         width: 100%;
-        padding: 40px 20px;
+        padding: 0px 20px;
     }
 
         .postContainer {
@@ -146,6 +146,34 @@ form {
     margin: 0px 40px;
 }
 
-#tinymceTextarea {
-    /*width: 80%;*/
+#pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0px;
+}
+
+#pagination a {
+    margin: 0px 5px;
+    color: #777;
+    text-decoration: none;
+    text-align: center;
+}
+
+#pagination .fa-caret-left, #pagination .fa-caret-right,
+#pagination .fa-step-backward, #pagination .fa-step-forward {
+    font-size: 2rem;
+}
+
+#pagination .fa-circle {
+    display: block;
+    font-size: 0.75rem;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.currentPage {
+    color: rgba(144, 94, 70, 0.7);
 }

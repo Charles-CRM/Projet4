@@ -33,6 +33,7 @@ class ChapterManager extends Model {
         return new Chapter($chapterDatas);
     }
     
+    // ATTENTION, faire en sorte de pouvoir demander tant la liste des chapitres publiés que la liste complète.
     public function getList(int $offset, int $number, bool $sortByDate, bool $ascending, bool $extractsOnly) {
         $chapters = [];
         $sorting;
@@ -47,8 +48,22 @@ class ChapterManager extends Model {
         //$chapterDatas = $query->execute(array('sorting' => $sorting, 'order' => $order, 'offset' => $offset, 'number' => $number));
         
         
-        $query = $db->db()->prepare('SELECT * FROM chapters ORDER BY ' . $sorting . ' ' . $order . ' LIMIT ' . $offset . ' , ' . $number);
-        $chapterDatas = $query->execute();
+        /*$query = $db->db()->prepare('SELECT * FROM chapters ORDER BY ' . $sorting . ' ' . $order . ' LIMIT ' . $offset . ' , ' . $number);
+        $chapterDatas = $query->execute();*/
+        
+        
+        
+        
+        
+        
+        
+        
+        $query = $db->db()->prepare('SELECT * FROM chapters ORDER BY :sorting :order LIMIT :offset , :count'); // . $sorting . ' ' . $order . ' LIMIT ' . $offset . ' , ' . $number);
+        $chapterDatas = $query->execute(array(             'sorting' => $sorting,             'order' => $order,             'offset' => $offset,             'count' => $count,         ));
+        
+        
+        
+        
         
         while ($chapterDatas = $query->fetch()) {
             if ($extractsOnly) { $chapterDatas['content'] = $this->getExtract($chapterDatas['content']); }
@@ -67,7 +82,22 @@ class ChapterManager extends Model {
     }
     
     private function getExtract(string $text) {
-        $text = substr($text, 0, strpos($text, ' ', 250));
+        $extractLength = 500;
+        
+        $text = strip_tags($text);
+        if (strlen($text) > $extractLength) {
+            $text = '<p>' . substr($text, 0, strpos($text, ' ', $extractLength)) . '</p>';
+        }
         return $text;
+    }
+    
+    // ATTENTION, la fonction doit gérer les chapitres publiés ou non.
+    public function getChaptersCount() {
+        $db = new Db();
+        $query = $db->db()->query('SELECT COUNT(*) FROM chapters');
+        $chaptersCount = $query->fetchColumn();
+        unset($db);
+        
+        return $chaptersCount;
     }
 }

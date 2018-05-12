@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="stylesheet" href="./public/css/chapter-inner-style.css" />
     <link rel="stylesheet" href="./public/css/index.css" />
+    <link rel="stylesheet" href="./public/fonts/fontawesome-5.0.4/css/fontawesome-all.css">
    
     <link rel="icon" type="image/x-icon" href="./images/ico/favicon.ico" />
     <title>Billet simple pour l'Alaska - Jean Forteroche</title>
