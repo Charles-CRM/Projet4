@@ -1,6 +1,6 @@
 <?php
 
-abstract class Model {
+class Model {
     
     // Hydrater
     public function hydrate(array $datas) {

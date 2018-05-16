@@ -2,8 +2,8 @@
 
 
     <form method='post' action='./?page=admin'>
-        <label for='login'>Nom d'utilisateur :</label>
-        <input type='text' id='login' name='login' />
+        <label for='username'>Nom d'utilisateur :</label>
+        <input type='text' id='username' name='username' />
         <label for='password'>Mot de passe :</label>
         <input type='password' id='password' name='password' />
         <input type='submit' value='Envoyer' />

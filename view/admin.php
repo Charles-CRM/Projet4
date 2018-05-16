@@ -5,7 +5,11 @@
     
     <form method='post' action='./?page=admin'>
         <textarea id='tinymceTextarea' name='tinymceContent'>
-            <?= $tinymceContent ?>
+            <?php
+                if (isset($tinymceContent)) {
+                    echo $tinymceContent;
+                }
+            ?>
         </textarea>
         <input type='submit' value='Sauvegarder' />
     </form>

@@ -1,9 +1,7 @@
 <?php include('./view/background.php'); ?>
 
 
-    <?php
-        $pagination->display($_GET['p']);
-    ?>
+    <?php include('./view/pagination.php'); ?>
    
     <div id='postsList'>
        
@@ -14,7 +12,7 @@
        
         <div class='postContainer'>
             <div class='post'>
-                <a class='chapterLink' href='./?page=chapter&id=<?= $chapter->id() ?>'><h3><?= $chapter->title() ?></h3></a>
+                <a class='chapterLink' href='./?chapter&id=<?= $chapter->id() ?>'><h3><?= $chapter->title() ?></h3></a>
                 <p><?= $chapter->content() ?></p>
             </div>
         </div>
@@ -25,10 +23,6 @@
         
     </div>
     
-
-    <?php
-        $pagination->display($_GET['p']);
-    ?>
-
+    <?php include('./view/pagination.php'); ?>
 
 <?php include('./view/footer.php'); ?>

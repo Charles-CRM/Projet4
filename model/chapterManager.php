@@ -48,23 +48,12 @@ class ChapterManager extends Model {
         //$chapterDatas = $query->execute(array('sorting' => $sorting, 'order' => $order, 'offset' => $offset, 'number' => $number));
         
         
-        /*$query = $db->db()->prepare('SELECT * FROM chapters ORDER BY ' . $sorting . ' ' . $order . ' LIMIT ' . $offset . ' , ' . $number);
-        $chapterDatas = $query->execute();*/
+        $query = $db->db()->prepare('SELECT * FROM chapters ORDER BY ' . $sorting . ' ' . $order . ' LIMIT ' . $offset . ' , ' . $number);
+        $chapterDatas = $query->execute();
         
-        
-        
-        
-        
-        
-        
-        
-        $query = $db->db()->prepare('SELECT * FROM chapters ORDER BY :sorting :order LIMIT :offset , :count'); // . $sorting . ' ' . $order . ' LIMIT ' . $offset . ' , ' . $number);
-        $chapterDatas = $query->execute(array(             'sorting' => $sorting,             'order' => $order,             'offset' => $offset,             'count' => $count,         ));
-        
-        
-        
-        
-        
+        /*$query = $db->db()->prepare('SELECT * FROM chapters ORDER BY :sorting :order LIMIT :offset , :count'); // . $sorting . ' ' . $order . ' LIMIT ' . $offset . ' , ' . $number);
+        $chapterDatas = $query->execute(array(             'sorting' => $sorting,             'order' => $order,             'offset' => $offset,             'count' => $count,         ));*/
+
         while ($chapterDatas = $query->fetch()) {
             if ($extractsOnly) { $chapterDatas['content'] = $this->getExtract($chapterDatas['content']); }
             $chapters[] = new Chapter($chapterDatas);
