@@ -5,7 +5,7 @@ require_once('./model/chapterManager.php');
 
 class ChapterController {
     
-    function get() {
+    function display() {
         $chapterMngr = new ChapterManager();
         $id = 1;
 
@@ -20,7 +20,7 @@ class ChapterController {
         require('./view/chapter.php');
     }
 
-    function getList() {
+    function displayAll() {
         $offset = 0;
         $chaptersPerPage = 10;
         $currentPageIx = 0;

@@ -11,7 +11,7 @@ class Chapter extends Model {
     private $_published;
     
     // Constructer
-    public function __construct(array $datas) {
+    public function __construct(array $datas = []) {
         $this->hydrate($datas);
     }
     
@@ -52,5 +52,6 @@ class Chapter extends Model {
     
     public function setPublished($published) {
         $published = boolval($published);
+        $this->_published = $published;
     }
 }

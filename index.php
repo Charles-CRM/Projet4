@@ -14,81 +14,41 @@ $loginCtrl = new LoginController();
 
 
 
-
-
-
-
-
-
-
-
 if (isset($_GET['admin'])) {
     if (array_key_exists('username', $_POST)) {
         $loginCtrl->login();
     }
+    
+    if (array_key_exists('chaptersPublicationInfosSave', $_POST)) {
+        $adminCtrl->updateChaptersPublication();
+    }
+    
+    if (array_key_exists('newChapter', $_POST)) {
+        $adminCtrl->newChapter();
+    }
 
-    if (array_key_exists('tinymceContent', $_POST)) {
+    if (array_key_exists('editedContent', $_POST) && array_key_exists('editedId', $_POST)) {
         $adminCtrl->update();
     }
 
     if (empty($_SESSION['username'])) {
         $loginCtrl->display();
     } else {
-        $adminCtrl->display();
+        if (isset($_GET['toedit']) && isset($_GET['id'])
+           && !array_key_exists('editionSaveAndQuit', $_POST)) {
+            $adminCtrl->edit($_GET['toedit'], $_GET['id']);
+        } else if (!array_key_exists('newChapter', $_POST)){
+            $adminCtrl->display();
+        }
     }
 } else if (isset($_GET['chapter'])) {
-    if (isset($_GET['id']) && $_GET['id'] > 0)
+    if (isset($_GET['id']) && isset($_GET['id']))
     {
-        $chapterCtrl->get();
+        $chapterCtrl->display();
     } else {
         echo "ERREUR : Identifiant de chapitre invalide.";
     }
 } else {
-    $chapterCtrl->getList();
+    $chapterCtrl->displayAll();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*if (isset($_GET['page'])) {
-    if ($_GET['page'] == 'chapter') {
-        if (isset($_GET['id']) && $_GET['id'] > 0)
-        {
-            $chapterCtrl->get();
-        } else {
-            echo "ERREUR : Identifiant de chapitre invalide.";
-        }
-    } else if ($_GET['page'] == 'admin') {
-        if (array_key_exists('username', $_POST)) {
-            $loginCtrl->login();
-        }
-
-        if (array_key_exists('tinymceContent', $_POST)) {
-            $adminCtrl->update();
-        }
-
-        if (empty($_SESSION['username'])) {
-            $loginCtrl->display();
-        } else {
-            $adminCtrl->display();
-        }
-    }
-
-} else {
-    $chapterCtrl->getList();
-}*/
 

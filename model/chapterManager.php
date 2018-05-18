@@ -7,18 +7,21 @@ require_once('./model/database.php');
 
 class ChapterManager extends Model {
 
-    public function add(Chapter $chapter) {
+    public function add() {
         $db = new Db();
-        $query = $db->db()->prepare('INSERT INTO chapters(title, content, publication_date, published) VALUES(title = :title, content = :content, publication_date = :publication_date, published = :published)');
-        $query->execute(array('title' => $chapter->title(), 'content' => $chapter->content(), 'publication_date' => $chapter->publication_date(), 'published' =>settype($chapter->published(), 'integer')));
+        $query = $db->db()->query("INSERT INTO chapters(title, content, publication_date, published) VALUES('', '', 0, 0)");
+        $query = $db->db()->query('SELECT * FROM chapters ORDER BY id DESC LIMIT 1');
+        $chapterDatas = $query->fetch();
+        $query->closeCursor();
         unset($db);
+        
+        return new Chapter($chapterDatas);
     }
     
-    // ATTENTION, la MàJ de la date de publication n'est pas gérée.
     public function update(Chapter $chapter) {
         $db = new Db();
         $query = $db->db()->prepare('UPDATE chapters SET content = :content, title = :title, published = :published WHERE id = :id');
-        $query->execute(array('id' => $chapter->id(), 'title' => $chapter->title(), 'content' => $chapter->content(), 'published' =>settype($chapter->published(), 'integer')));
+        $query->execute(array('id' => $chapter->id(), 'title' => $chapter->title(), 'content' => $chapter->content(), 'published' => $chapter->published()));
         unset($db);
     }
     
@@ -72,11 +75,14 @@ class ChapterManager extends Model {
     
     private function getExtract(string $text) {
         $extractLength = 500;
-        
+            
         $text = strip_tags($text);
         if (strlen($text) > $extractLength) {
             $text = '<p>' . substr($text, 0, strpos($text, ' ', $extractLength)) . '</p>';
+        } else {
+            $text = '<p>' . $text . '</p>';
         }
+        
         return $text;
     }
     

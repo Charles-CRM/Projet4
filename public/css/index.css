@@ -5,7 +5,9 @@
 
 
 
-
+* {
+    font-size: 1rem;
+}
 
 
 
@@ -14,7 +16,6 @@ p {
     padding: 0px;
     font-family: Garamond, serif;
 }
-
 
 
 
@@ -142,8 +143,17 @@ body {
                 font-size: 1.2rem;
             }*/
 
+h2 {
+    margin: 20px 0px 40px 0px;
+    font-size: 2rem;
+    text-align: center;
+    color: #333;
+}
+
 form {
-    margin: 0px 40px;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0px 40px;
 }
 
 #pagination {
@@ -177,3 +187,124 @@ form {
 .currentPage {
     color: rgba(144, 94, 70, 0.7);
 }
+
+#adminChaptersList {
+    text-align: right;
+}
+
+.formTableContainer, .tableContainer {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 20px;
+    border: 6px #C2CFDB dashed;
+}
+
+.tableContainer {
+    width: calc(100% - 80px);
+    margin: 0px 40px 40px 40px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead > tr {
+    height: 40px;
+}
+
+tr:nth-child(even) {
+    background-color: rgba(144, 94, 70, 0.06);
+}
+
+tbody > tr:hover {
+    background-color: #C2CFDB;
+}
+
+th {
+    text-align: center;
+    color: #333;
+}
+
+/*td {
+    width: 60px;
+    text-align: center;
+}
+
+#adminCommentsList */td {
+    width: 40px;
+    text-align: center;
+}
+
+#adminChaptersList td:first-of-type {
+    width: auto;
+    text-align: left;
+    padding: 5px 20px;
+}
+
+#adminCommentsList td:nth-of-type(3) {
+    width: auto;
+    text-align: justify;
+    padding: 5px 20px;
+}
+
+
+table a {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    text-decoration: none;
+}
+
+.bigButton {
+    margin: 20px 0px 20px 10px;
+    min-height: 30px;
+    padding: 5px;
+    border: 2px #CCC outset;
+    background-color: #C2CFDB;
+    color: #555;
+}
+
+.bigButton:active {
+    border: 2px #CCC inset;
+}
+
+table > caption {
+    text-align: left;
+    font-size: 1.4rem;
+    color: #AAA;
+}
+
+.buttonsBox {
+    width: 100%;
+    text-align: right;
+}
+
+#editedTitle {
+    box-sizing: border-box;
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 5px 0px 5px 50px;
+    border: 1px #BBB solid;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+}
+
+/*#adminEditionForm > */label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 1.4rem;
+    color: #AAA; 
+    text-indent: 50px;
+}
+
+#adminComment > label {
+    text-indent: 20px;
+}
+
+#editedComment {
+    box-sizing: border-box;
+    width: 100%;
+    height: 120px;
+    resize: none;
+}
+
