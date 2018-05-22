@@ -123,18 +123,38 @@ body {
                     margin: 0px 0px 5px 50px;
                     display: block;
                     font-family: 'Arial Black', sans-serif;
-                    color: inherit;
+                    /*color: inherit;*/
+                    color: #555;
                     font-size: 1.2rem;
                 }
 
             .post > p {
                 margin: 0px;
-                font-family: Garamond, serif;
+                font-family: 'Garamond', serif;
                 text-align: justify;
             }
 
             .post strong {
                 font-weight: bold;
+            }
+
+            .post .chapterInfos {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 10px;
+                padding-top: 10px;
+                border-top: 1px #555 solid;
+                font-size: 0.8rem;
+                font-weight: bold;
+                color: #555;
+            }
+
+            .chapterInfos .chapterDate {
+                text-align: left;
+            }
+
+            .chapterInfos .chapterCommentsNbr {
+                text-align: right;
             }
 
         #chapter {
@@ -145,13 +165,20 @@ body {
             color: #333;
         }
 
+            #chapterPublicationDate {
+                display: block;
+                width: 100%;
+                text-align: right;
+            }
+
             #chapter > h3 {
                 width: 100%;
                 margin-bottom: 30px;
                 font-family: 'Viper Nora', 'Arial Black', sans-serif;
                 text-align: center;
                 font-size: 2rem;
-                color: #777;
+                /*color: #777;*/
+                color: #C2CFDB;
             }
 
             /*#chapter > p {
@@ -180,18 +207,33 @@ form {
     justify-content: center;
     align-items: center;
     margin: 20px 0px;
+    border-collapse: collapse;
+    border-spacing: 0px;
 }
 
 #pagination a {
-    margin: 0px 5px;
     color: #777;
     text-decoration: none;
     text-align: center;
 }
 
-#pagination .fa-caret-left, #pagination .fa-caret-right,
+#pagination td {
+    position: relative;
+    width: 20px;
+    height: 25px;
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
+}
+
+#pagination .fa-caret-left, #pagination .fa-caret-right {
+    font-size: 1.8rem;
+}
+
 #pagination .fa-step-backward, #pagination .fa-step-forward {
-    font-size: 2rem;
+    position: relative;
+    top: 1px;
+    font-size: 1.2rem;
 }
 
 #pagination .fa-circle {
@@ -223,24 +265,24 @@ form {
     margin: 0px 40px 40px 40px;
 }
 
-table {
+#adminChaptersList table {
     width: 100%;
     border-collapse: collapse;
 }
 
-thead > tr {
+#adminChaptersList thead > tr {
     height: 40px;
 }
 
-tr:nth-child(even) {
+#adminChaptersList tr:nth-child(even) {
     background-color: rgba(144, 94, 70, 0.06);
 }
 
-tbody > tr:hover {
+#adminChaptersList tbody > tr:hover {
     background-color: #C2CFDB;
 }
 
-th {
+#adminChaptersList th {
     text-align: center;
     color: #333;
 }
@@ -250,7 +292,7 @@ th {
     text-align: center;
 }
 
-#adminCommentsList */td {
+#adminCommentsList */#adminChaptersList td {
     width: 40px;
     text-align: center;
 }
@@ -392,5 +434,24 @@ table > caption {
 
 #chapterCommentsListLabel {
     text-indent: 90px;
+}
+
+#loginForm {
+    margin-top: 50px;
+    text-align: center;
+}
+
+#loginForm input {
+    margin-bottom: 20px;
+    padding: 7px;
+}
+
+#loginForm label {
+    text-indent: initial;
+}
+
+#loginForm .bigButton {
+    display: block;
+    margin: 0px auto;
 }
 

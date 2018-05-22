@@ -1,5 +1,6 @@
 <?php
 require_once('./model/model.php');
+require_once('./model/commentManager.php');
 
 
 
@@ -9,18 +10,27 @@ class Chapter extends Model {
     private $_content;
     private $_publication_date;
     private $_published;
+    private $_commentsNbr;
     
     // Constructer
     public function __construct(array $datas = []) {
         $this->hydrate($datas);
+        $this->setCommentsNbr();
     }
     
     // Getters
     public function id() { return $this->_id; }
     public function title() { return $this->_title; }
     public function content() { return $this->_content; }
-    public function publication_date() { return $this->_publication_date; }
     public function published() { return $this->_published; }
+    public function commentsNbr() { return $this->_commentsNbr; }
+    public function publication_date(bool $humanFormat = false) {
+        $publication_date = $this->_publication_date;
+        if ($humanFormat) {
+            $publication_date = date('\l\e d/m/Y', $publication_date);
+        }
+        return $publication_date;
+    }
     
     
     // Setters
@@ -53,5 +63,10 @@ class Chapter extends Model {
     public function setPublished($published) {
         $published = boolval($published);
         $this->_published = $published;
+    }
+    
+    public function setcommentsNbr() {
+        $commentMngr = new CommentManager();
+        $this->_commentsNbr = $commentMngr->getCommentsCount($this->_id);
     }
 }

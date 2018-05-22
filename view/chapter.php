@@ -6,8 +6,9 @@
     {
 ?>
 
-   
+    
     <div id='chapter'>
+        <span id='chapterPublicationDate'>Publié <?= $chapter->publication_date(true) ?></span>
         <h3><?= $chapter->title() ?></h3>
         <p><?= $chapter->content() ?></p>
     </div>

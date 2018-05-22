@@ -11,6 +11,10 @@ class LoginController {
         $adminMngr->login($_POST['username'], $_POST['password']);
     }
     
+    public function logout() {
+        session_unset();
+    }
+    
     public function display() {
         require('./view/login.php');
     }

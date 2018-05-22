@@ -15,6 +15,7 @@
                 <div class='post'>
                     <h3><?= $chapter->title() ?></h3>
                     <p><?= $chapter->content() ?></p>
+                    <div class='chapterInfos'><span class='chapterDate'>Publié <?= $chapter->publication_date(true) ?></span><span class='chapterCommentsNbr'><?= $chapter->commentsNbr() ?> commentaire(s)</span></div>
                 </div>
             </a>
         </div>

@@ -27,7 +27,7 @@ class Comment extends Model {
     public function publication_date(bool $humanFormat = false) {
         $publication_date = $this->_publication_date;
         if ($humanFormat) {
-            $publication_date = date('\L\e d/m/Y \à h\hi', $publication_date);
+            $publication_date = date('\l\e d/m/Y \à h\hi', $publication_date);
         }
         return $publication_date;
     }

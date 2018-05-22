@@ -16,6 +16,12 @@ $loginCtrl = new LoginController();
 
 
 
+if (array_key_exists('disconnection', $_POST)) {
+    $loginCtrl->logout();
+}
+
+
+
 if (isset($_GET['admin'])) {
     if (array_key_exists('username', $_POST)) {
         $loginCtrl->login();

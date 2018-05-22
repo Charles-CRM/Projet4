@@ -1,10 +1,16 @@
 <?php include('./view/background.php'); ?>
 
 
+    <div class='buttonsBox'>
+        <form method='post' action='./'>
+            <input name='disconnection' class='bigButton' type='submit' value='Se déconnecter' />
+        </form>
+    </div>
+   
     <h2>Panneau d'administration</h2>
     
     <form id='adminChaptersList' method='post' action='/?admin'>
-       <input type='hidden' name='chaptersPublicationInfos' value='save' />
+        <input type='hidden' name='chaptersPublicationInfos' value='save' />
         <div class='formTableContainer'>
         <table>
             <caption>Liste des chapitres</caption>
