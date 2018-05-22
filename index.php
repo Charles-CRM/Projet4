@@ -52,6 +52,10 @@ if (isset($_GET['admin'])) {
         $commentCtrl->newComment();
     }
     
+    if (isset($_GET['signalComment'])) {
+        $commentCtrl->signal();
+    }
+    
     
     if (isset($_GET['id']) && isset($_GET['id']))
     {

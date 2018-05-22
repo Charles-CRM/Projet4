@@ -34,7 +34,7 @@
             <?php foreach ($comments as $comment) { ?>
 
             <li>
-                <div class='commentInfos'><span class='commentAuthor'><?= $comment->author() ?></span><span class='commentDate'><?= $comment->publication_date(true) ?></span><div class='commentSignalButton'><i class="fas fa-exclamation-circle" title='Signaler ce commentaire'></i></div></div>
+                <div class='commentInfos'><span class='commentAuthor'><?= $comment->author() ?></span><span class='commentDate'><?= $comment->publication_date(true) ?></span><div class='commentSignalButton'><a href='.<?= $_SERVER['REQUEST_URI'] ?>&signalComment=<?= $comment->id() ?>'><i class="fas fa-exclamation-circle" title='Signaler ce commentaire'></i></a></div></div>
                 <p class='commentContent'><?= $comment->content() ?></p>
             </li>
 
