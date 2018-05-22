@@ -7,10 +7,10 @@ class Comment extends Model {
     private $_id;
     private $_chapter_id;
     private $_author;
+    private $_publication_date;
     private $_content;
     private $_moderated;
     private $_signaled;
-    private $_votes;
     
     // Constructer
     public function __construct(array $datas) {
@@ -24,7 +24,13 @@ class Comment extends Model {
     public function content() { return $this->_content; }
     public function moderated() { return $this->_moderated; }
     public function signaled() { return $this->_signaled; }
-    public function votes() { return $this->_votes; }
+    public function publication_date(bool $humanFormat = false) {
+        $publication_date = $this->_publication_date;
+        if ($humanFormat) {
+            $publication_date = date('\L\e d/m/Y \à h\hi', $publication_date);
+        }
+        return $publication_date;
+    }
     
     
     // Setters
@@ -42,33 +48,36 @@ class Comment extends Model {
         }
     }
     
+    // (Limited to 20 characters.)
     public function setAuthor($author) {
         if (is_string($author)) {
-            $this->_author = $author;
+            $this->_author = substr($author, 0, 20);
         }
     }
     
+    public function setPublication_date($publication_date) {
+        $publication_date = (int) $publication_date;
+        if ($publication_date > 0) {
+            $this->_publication_date = $publication_date;
+        }
+    }
+    
+    // (Limited to 250 characters.)
     public function setContent($content) {
         if (is_string($content)) {
-            $this->_content = $content;
+            $this->_content = substr($content, 0, 250);
         }        
     }
     
     public function setModerated($moderated) {
         $moderated = boolval($moderated);
+        $this->_moderated = $moderated;
     }
     
     public function setSignaled($signaled) {
         $signaled = (int) $signaled;
         if ($signaled > 0) {
             $this->_signaled = $signaled;
-        }
-    }
-    
-    public function setVotes($votes) {
-        $votes = (int) $votes;
-        if ($votes > 0) {
-            $this->_votes = $votes;
         }
     }
 }

@@ -4,12 +4,14 @@ session_start();
 
 require('./controller/admin.php');
 require('./controller/chapter.php');
+require('./controller/comment.php');
 require('./controller/login.php');
 
 
 
 $adminCtrl = new AdminController();
 $chapterCtrl = new ChapterController();
+$commentCtrl = new CommentController();
 $loginCtrl = new LoginController();
 
 
@@ -21,6 +23,10 @@ if (isset($_GET['admin'])) {
     
     if (array_key_exists('chaptersPublicationInfosSave', $_POST)) {
         $adminCtrl->updateChaptersPublication();
+    }
+    
+    if (array_key_exists('commentsModerationInfosSave', $_POST)) {
+        $adminCtrl->updateCommentsModeration();
     }
     
     if (array_key_exists('newChapter', $_POST)) {
@@ -42,6 +48,11 @@ if (isset($_GET['admin'])) {
         }
     }
 } else if (isset($_GET['chapter'])) {
+    if (array_key_exists('newCommentAuthor', $_POST) && array_key_exists('newCommentContent', $_POST)) {
+        $commentCtrl->newComment();
+    }
+    
+    
     if (isset($_GET['id']) && isset($_GET['id']))
     {
         $chapterCtrl->display();

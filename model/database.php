@@ -14,7 +14,7 @@ class Db {
     // Connection to the database
     private function connect() {
         try {
-            $this->_db = new PDO('mysql:host=localhost;dbname=chesfnpg_alaska_jf;charset=utf8', 'chesfnpg', 'OCV7b9h632F#');
+            $this->_db = new PDO('mysql:host=localhost;dbname=chesfnpg_alaska_jf;charset=utf8', 'chesfnpg', 'OCV7b9h632F#', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
         }
         catch (Exception $e) {
             die('Erreur : ' . $e->getMessage());

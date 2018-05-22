@@ -3,6 +3,12 @@
     src: url('../fonts/Viper Nora.woff');
 }
 
+@font-face {
+    font-family: 'Roboto Regular';
+    src: url('../fonts/Roboto-Regular.ttf');
+}
+
+
 
 
 * {
@@ -51,27 +57,32 @@ body {
         color: #222;
     }
 
-        h1 {
-            width: 100%;
-            margin: 0px;
-            font-family: 'Viper Nora', 'Arial Black', sans-serif;
-            font-size: 6rem;
-            text-align: center;
+        #homepageLink {
+            text-decoration: none;
+            color: inherit;
         }
 
-        #authorLine {
-            width: 60%;
-            height: 0px;
-            margin: 10px auto;
-            border: 1px black solid;
-        }
+            h1 {
+                width: 100%;
+                margin: 0px;
+                font-family: 'Viper Nora', 'Arial Black', sans-serif;
+                font-size: 6rem;
+                text-align: center;
+            }
 
-        #author {
-            width: 100%;
-            margin: 0px;
-            font-size: 2rem;
-            text-align: center;
-        }
+            #authorLine {
+                width: 60%;
+                height: 0px;
+                margin: 10px auto;
+                border: 1px black solid;
+            }
+
+            #author {
+                width: 100%;
+                margin: 0px;
+                font-size: 2rem;
+                text-align: center;
+            }
 
     #postsList {
         width: 100%;
@@ -98,15 +109,14 @@ body {
                 color: black;
             }
 
-            .post > .chapterLink {
-                margin: 0px 0px 15px 50px;
-                display: block;
+            .chapterLink {
                 text-decoration: none;
                 color: inherit;
             }
 
-                .chapterLink > h3 {
-                    margin: 0px;
+                .post > h3 {
+                    margin: 0px 0px 5px 50px;
+                    display: block;
                     font-family: 'Arial Black', sans-serif;
                     color: inherit;
                     font-size: 1.2rem;
@@ -116,6 +126,10 @@ body {
                 margin: 0px;
                 font-family: Garamond, serif;
                 text-align: justify;
+            }
+
+            .post strong {
+                font-weight: bold;
             }
 
         #chapter {
@@ -258,15 +272,17 @@ table a {
 .bigButton {
     margin: 20px 0px 20px 10px;
     min-height: 30px;
-    padding: 5px;
-    border: 2px #CCC outset;
-    background-color: #C2CFDB;
+    padding: 7px;
+    border: 1px #888 solid;
+    border-radius: 8px;
+    background: linear-gradient(to bottom, #cfd9e3, #afc0d0);
+    font-family: 'Roboto Regular', 'Arial', sans-serif;
     color: #555;
 }
 
-.bigButton:active {
+/*.bigButton:active {
     border: 2px #CCC inset;
-}
+}*/
 
 table > caption {
     text-align: left;
@@ -301,10 +317,75 @@ table > caption {
     text-indent: 20px;
 }
 
-#editedComment {
+#editedComment, #newCommentContent {
     box-sizing: border-box;
     width: 100%;
     height: 120px;
+    border: 1px #BBB solid;
     resize: none;
+    padding: 5px 10px;
+    color: #333;
+}
+
+#newCommentAuthor {
+    box-sizing: border-box;
+    width: 200px;
+    margin-bottom: 10px;
+    padding: 5px 10px;
+    border: 1px #BBB solid;
+    color: #333;
+}
+
+#chapterCommentsList {
+    box-sizing: border-box;
+    width: calc(100% - 80px);
+    margin: 0px 40px 40px 40px;
+    padding: 20px;
+    border: 6px #C2CFDB dashed;
+    list-style-type: none;
+}
+
+#chapterCommentsList > li:nth-child(even) {
+    background-color: rgba(144, 94, 70, 0.06);
+}
+
+#chapterCommentsList > li {
+    padding: 10px 20px;
+    border-bottom: 1px #C2CFDB solid;
+}
+
+#chapterCommentsList > li:last-child {
+    border-bottom: none;
+}
+
+.commentInfos {
+    position: relative;
+    margin-bottom: 3px;
+}
+
+.commentAuthor {
+    font-weight: bold;
+    margin-left: 30px;
+}
+
+.commentDate {
+    margin-left: 20px;
+    font-size: 0.8rem;
+    color: #888;
+}
+
+.commentContent {
+    text-indent: initial;
+}
+
+.commentSignalButton {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    color: #C2CFDB;
+}
+
+#chapterCommentsListLabel {
+    text-indent: 90px;
 }
 

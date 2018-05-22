@@ -6,7 +6,8 @@ require_once('./model/database.php');
 
 
 class ChapterManager extends Model {
-
+    
+    // Add a new empty chapter to the database and return it.
     public function add() {
         $db = new Db();
         $query = $db->db()->query("INSERT INTO chapters(title, content, publication_date, published) VALUES('', '', 0, 0)");
@@ -18,6 +19,7 @@ class ChapterManager extends Model {
         return new Chapter($chapterDatas);
     }
     
+    // Update a pre-existing chapter.
     public function update(Chapter $chapter) {
         $db = new Db();
         $query = $db->db()->prepare('UPDATE chapters SET content = :content, title = :title, published = :published WHERE id = :id');
@@ -25,6 +27,7 @@ class ChapterManager extends Model {
         unset($db);
     }
     
+    // Return the chapter corresponding to the id.
     public function get($id) {
         $db = new Db();
         $query = $db->db()->prepare("SELECT * FROM chapters WHERE id = :id");
@@ -36,22 +39,24 @@ class ChapterManager extends Model {
         return new Chapter($chapterDatas);
     }
     
-    // ATTENTION, faire en sorte de pouvoir demander tant la liste des chapitres publiés que la liste complète.
-    public function getList(int $offset, int $number, bool $sortByDate, bool $ascending, bool $extractsOnly) {
+    // Return a list of chapters (only the published ones or all of them).
+    public function getList(int $offset, int $number, bool $publishedOnly, bool $sortByDate, bool $ascending, bool $extractsOnly) {
         $chapters = [];
         $sorting;
         $order;
+        $condition;
         
         $db = new Db();
         
         if ($sortByDate) { $sorting = 'publication_date'; } else { $sorting = 'id'; }
         if ($ascending) { $order = ''; } else { $order = 'DESC'; }
+        if ($publishedOnly) { $condition = 'WHERE published = true'; } else { $condition = ''; }
         
         //$query = $db->db()->prepare("SELECT * FROM chapters ORDER BY :sorting :order LIMIT :offset, :number");
         //$chapterDatas = $query->execute(array('sorting' => $sorting, 'order' => $order, 'offset' => $offset, 'number' => $number));
         
         
-        $query = $db->db()->prepare('SELECT * FROM chapters ORDER BY ' . $sorting . ' ' . $order . ' LIMIT ' . $offset . ' , ' . $number);
+        $query = $db->db()->prepare('SELECT * FROM chapters ' . $condition . ' ORDER BY ' . $sorting . ' ' . $order . ' LIMIT ' . $offset . ' , ' . $number);
         $chapterDatas = $query->execute();
         
         /*$query = $db->db()->prepare('SELECT * FROM chapters ORDER BY :sorting :order LIMIT :offset , :count'); // . $sorting . ' ' . $order . ' LIMIT ' . $offset . ' , ' . $number);
@@ -66,6 +71,7 @@ class ChapterManager extends Model {
         return $chapters;
     }
     
+    // Delete a chapter.
     public function delete(Chapter $chapter) {
         $db = new Db();
         $query = $db->db()->prepare('DELETE FROM chapters WHERE id = :id');
@@ -73,12 +79,13 @@ class ChapterManager extends Model {
         unset($db);
     }
     
+    // Transform a string into an extract.
     private function getExtract(string $text) {
         $extractLength = 500;
             
         $text = strip_tags($text);
         if (strlen($text) > $extractLength) {
-            $text = '<p>' . substr($text, 0, strpos($text, ' ', $extractLength)) . '</p>';
+            $text = '<p>' . substr($text, 0, strpos($text, ' ', $extractLength)) . ' <strong>[...]</strong>' . '</p>';
         } else {
             $text = '<p>' . $text . '</p>';
         }
@@ -86,10 +93,12 @@ class ChapterManager extends Model {
         return $text;
     }
     
-    // ATTENTION, la fonction doit gérer les chapitres publiés ou non.
-    public function getChaptersCount() {
+    // Return the number of chapters (published or total) present in the database.
+    public function getChaptersCount(bool $publishedOnly = true) {
+        if ($publishedOnly) { $condition = 'true'; } else { $condition = 'false'; }
+        
         $db = new Db();
-        $query = $db->db()->query('SELECT COUNT(*) FROM chapters');
+        $query = $db->db()->query('SELECT COUNT(*) FROM chapters WHERE published = ' . $condition);
         $chaptersCount = $query->fetchColumn();
         unset($db);
         

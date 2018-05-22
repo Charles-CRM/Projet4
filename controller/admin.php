@@ -8,7 +8,9 @@ class AdminController {
     
     public function display() {
         $chapterMngr = new ChapterManager();
-        $chapters = $chapterMngr->getList(0, 10000, false, true, false);
+        $commentMngr = new CommentManager();
+        $chapters = $chapterMngr->getList(0, 10000, false, false, true, false);
+        $comments = $commentMngr->getList(0, 10000, 0, true);
 
         require_once('./view/admin.php');
     }
@@ -54,7 +56,7 @@ class AdminController {
     
     public function updateChaptersPublication() {
         $chapterMngr = new ChapterManager();
-        $chapters = $chapterMngr->getList(0, 10000, false, true, false);
+        $chapters = $chapterMngr->getList(0, 10000, false, false, true, false);
 
         foreach ($chapters as $chapter) {
             $publicationPostEntry = 'publication' . $chapter->id();
@@ -76,6 +78,25 @@ class AdminController {
             // Deletion of the selected chapters.
             if (array_key_exists($deletionPostEntry, $_POST)) {
                 $chapterMngr->delete($chapter);
+            }
+        }
+    }
+    
+    public function updateCommentsModeration() {
+        $commentMngr = new CommentManager();
+        $comments = $commentMngr->getList(0, 10000, 0, true);
+        
+        foreach ($comments as $comment) {
+            $ignorePostEntry = 'ignore-' . $comment->id();
+            $deletePostEntry = 'delete-' . $comment->id();
+            
+            if (array_key_exists($ignorePostEntry, $_POST)) {
+                $comment->hydrate(['moderated' => true]);
+                $commentMngr->update($comment);
+            }
+            
+            if (array_key_exists($deletePostEntry, $_POST)) {
+                $commentMngr->delete($comment);
             }
         }
     }

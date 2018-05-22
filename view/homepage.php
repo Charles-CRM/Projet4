@@ -11,10 +11,12 @@
     ?>
        
         <div class='postContainer'>
-            <div class='post'>
-                <a class='chapterLink' href='./?chapter&id=<?= $chapter->id() ?>'><h3><?= $chapter->title() ?></h3></a>
-                <p><?= $chapter->content() ?></p>
-            </div>
+            <a class='chapterLink' href='./?chapter&id=<?= $chapter->id() ?>'>
+                <div class='post'>
+                    <h3><?= $chapter->title() ?></h3>
+                    <p><?= $chapter->content() ?></p>
+                </div>
+            </a>
         </div>
         
     <?php

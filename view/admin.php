@@ -80,9 +80,10 @@
     
     
     
-    
+    <?php if (count($comments) > 0) { ?>
     
     <form id='adminComment' method='post' action='/?admin'>
+        <input id='editedCommentId' name='editedId' type='hidden' />
         <label for='editedComment'>Commentaire sélectionné :</label>
         <textarea id='editedComment' name='editedContent'>
         </textarea>
@@ -92,7 +93,7 @@
         </div>
     </form>
     
-    
+    <form method='post' action='/?admin'>
     <div class='tableContainer'>
         <table id='adminCommentsList'>
             <caption>Commentaires signalés</caption>
@@ -106,59 +107,29 @@
                 </tr>
             </thead>
             <tbody>
+               
+               
+               <?php foreach($comments as $comment) { ?>
+               
                 <tr>
-                    <td><a href='./?chapter&id=9' target=_blank>9</a></td>
-                    <td>PenguinLover</td>
-                    <td>Ceci est un commentaire. Je n'ai rien d'intéressant à dire, c'est pourquoi j'écris un commentaire...</td>
-                    <td><input type='checkbox' name='ignore' /></td>
-                    <td><input type='checkbox' name='delete' /></td>
+                    <td><a href='./?chapter&id=<?= $comment->chapter_id() ?>' target=_blank><?= $comment->chapter_id() ?></a></td>
+                    <td><?= $comment->author() ?></td>
+                    <td id='comment-<?= $comment->id() ?>' class='comment'><?= $comment->content() ?></td>
+                    <td><input type='checkbox' class='ignoreButton' name='ignore-<?= $comment->id() ?>' /></td>
+                    <td><input type='checkbox' class='deleteButton' name='delete-<?= $comment->id() ?>' /></td>
                 </tr>
-                <tr>
-                    <td><a href='./?chapter&id=9' target=_blank>12</a></td>
-                    <td>N00bKi77eR</td>
-                    <td>Wesh ! Vas-y que j'te laisse un comment sur ton blog !</td>
-                    <td><input type='checkbox' name='ignore' /></td>
-                    <td><input type='checkbox' name='delete' /></td>
-                </tr>
-                <tr>
-                    <td><a href='./?chapter&id=9' target=_blank>1</a></td>
-                    <td>LinguisteEnHerbe</td>
-                    <td>Lamentable de voir que même un 'grand' auteur, ne sait pas écrire correctement. Ce texte est truffé de fautes d'orthographe.</td>
-                    <td><input type='checkbox' name='ignore' /></td>
-                    <td><input type='checkbox' name='delete' /></td>
-                </tr>
-                <tr>
-                    <td><a href='./?chapter&id=9' target=_blank>7</a></td>
-                    <td>BestOfTrolls</td>
-                    <td>Joli bouquin, ça ma rappelle Mein Kampf, le style en moins.</td>
-                    <td><input type='checkbox' name='ignore' /></td>
-                    <td><input type='checkbox' name='delete' /></td>
-                </tr>
-                <tr>
-                    <td><a href='./?chapter&id=9' target=_blank>5</a></td>
-                    <td>KikooLol08</td>
-                    <td>Tro mimi tro chou, JTM Jean Forteroche !!!</td>
-                    <td><input type='checkbox' name='ignore' /></td>
-                    <td><input type='checkbox' name='delete' /></td>
-                </tr>
-                <tr>
-                    <td><a href='./?chapter&id=9' target=_blank>1</a></td>
-                    <td>LeBonSouk.com</td>
-                    <td>Achetez 'Lorem ipsum' sur LeBonSouk.com et profitez d'une réduction de 85% !!!</td>
-                    <td><input type='checkbox' name='ignore' /></td>
-                    <td><input type='checkbox' name='delete' /></td>
-                </tr>
-                <tr>
-                    <td><a href='./?chapter&id=9' target=_blank>8</a></td>
-                    <td>BêteÀMangerDuFoin</td>
-                    <td>J'ai rien compris. O_O' </td>
-                    <td><input type='checkbox' name='ignore' /></td>
-                    <td><input type='checkbox' name='delete' /></td>
-                </tr>
+
+               <?php } ?>
+
             </tbody>
         </table>
     </div>
+    <div class='buttonsBox'>
+        <input name='commentsModerationInfosSave' class='bigButton' type='submit' value='Sauvegarder' />
+    </div>
+    </form>
     
+    <?php } ?>
     
     
     
