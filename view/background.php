@@ -22,7 +22,7 @@
         <a id='homepageLink' href='./' target=_self>
             <h1>Billet simple pour l'Alaska</h1>
             <div id='authorLine'></div>
-            <p id='author'>Jean Forteroche</p>
+            <span id='author'>Jean Forteroche</span>
         </a>
     </header>
     

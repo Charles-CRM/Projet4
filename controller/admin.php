@@ -9,72 +9,85 @@ class AdminController {
     public function display() {
         $chapterMngr = new ChapterManager();
         $commentMngr = new CommentManager();
-        $chapters = $chapterMngr->getList(0, 10000, false, false, true, false);
+        $chapters = $chapterMngr->getList(0, 10000, false, true, false);
         $comments = $commentMngr->getList(0, 10000, 0, true);
 
         require_once('./view/admin.php');
     }
     
     public function newChapter() {
-        $chapterMngr = new ChapterManager();
-        $chapter = $chapterMngr->add();
+        $datas['title'] = htmlspecialchars((string) $_POST['editedTitle']);
+        $datas['number'] = abs((int) $_POST['editedNumber']);
+        $datas['content'] = (string) $_POST['editedContent'];
         
-        $this->edit('chapter', $chapter->id());
+        $chapterMngr = new ChapterManager();
+        $updatedChapter = $chapterMngr->add();
+        $updatedChapter->hydrate($datas);
+        $chapterMngr->update($updatedChapter);
+        $_GET['toedit'] = $updatedChapter->id();
     }
 
-    public function edit($type, $id) {
-        $id = (int) $id;
-        
-        if ($type == 'chapter') {
-            $objectMngr = new ChapterManager();
-            $objectType = 'chapter';
-        } else if ($type == 'comment') {
-            $objectMngr = new CommentManager();
-            $objectType = 'comment';
+    public function edit() {
+        if ($_GET['toedit'] == 'new') {
+            $id = 'new';
+        } else {
+            $id = abs((int) $_GET['toedit']);
+
+            $chapterMngr = new ChapterManager();
+            $editedChapter = $chapterMngr->get($id);
         }
-        $editedObject = $objectMngr->get($id);
-        
+
         require_once('./view/edition.php');
     }
     
     public function update() {
-        $datas['id'] = (int) $_POST['editedId'];
+        $chapterMngr = new ChapterManager();
         
-        if (array_key_exists('editedTitle', $_POST)) {
-            $objectMngr = new ChapterManager();
-            $datas['title'] = htmlspecialchars((string) $_POST['editedTitle']);
-        } else {
-            $objectMngr = new CommentManager();
-        }
-        $updatedObject = $objectMngr->get($datas['id']);
-        
+        $datas['id'] = abs((int) $_POST['editedId']);
+        $datas['title'] = htmlspecialchars((string) $_POST['editedTitle']);
+        $datas['number'] = abs((int) $_POST['editedNumber']);
         $datas['content'] = (string) $_POST['editedContent'];
-        $updatedObject->hydrate($datas);
         
-        $objectMngr->update($updatedObject);
+        $updatedChapter = $chapterMngr->get($datas['id']);
+        $updatedChapter->hydrate($datas);
+        $chapterMngr->update($updatedChapter);
     }
     
     public function updateChaptersPublication() {
         $chapterMngr = new ChapterManager();
-        $chapters = $chapterMngr->getList(0, 10000, false, false, true, false);
+        $chapters = $chapterMngr->getList(0, 10000, false, true, false);
 
+        foreach ($chapters as $chapter) {
+            if ($chapter->published()) {
+                $usedNumbers[$chapter->number()] = '';
+            }
+        }
+        
         foreach ($chapters as $chapter) {
             $publicationPostEntry = 'publication' . $chapter->id();
             $deletionPostEntry = 'delete' . $chapter->id();
-            $timestamp = 0;
             
-            // Update of the publication infos.
-            if (array_key_exists($publicationPostEntry, $_POST)) {
-                if ($chapter->publication_date() > 0) {
-                    $timestamp = time();
+            if ($chapter->number() > 0) {
+                // Update of the publication infos.
+                if (array_key_exists($publicationPostEntry, $_POST)) {
+                    if (!array_key_exists($chapter->number(), $usedNumbers)) {
+                        if ($chapter->publication_date() > 0) {
+                            $publication_date = date('Y\-m\-d H\:i\:s', $chapter->publication_date());
+                        } else {
+                            $publication_date = date('Y\-m\-d H\:i\:s', time());
+                        }
+                        $chapter->hydrate(['publication_date' => $publication_date, 'published' => true]);
+                        $chapterMngr->update($chapter);
+                    } else {
+                        $GLOBALS['error'] = "Un chapitre ne peut être publié si un autre l'est déjà avec le même numéro.";
+                    }
+                } else {
+                    $chapter->hydrate(['published' => false]);
+                    $chapterMngr->update($chapter);
                 }
-                $chapter->hydrate(['publication_date' => $timestamp, 'published' => true]);
-                $chapterMngr->update($chapter);
-            } else {
-                $chapter->hydrate(['published' => false]);
-                $chapterMngr->update($chapter);
+            } else if (array_key_exists($publicationPostEntry, $_POST)) {
+                $GLOBALS['error'] = "Un chapitre doit impérativement avoir un numéro supérieur à 0 pour pouvoir être publié.";
             }
-            
             // Deletion of the selected chapters.
             if (array_key_exists($deletionPostEntry, $_POST)) {
                 $chapterMngr->delete($chapter);

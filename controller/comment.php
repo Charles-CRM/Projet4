@@ -22,4 +22,15 @@ class CommentController {
         $comment->hydrate(array('signaled' => ($comment->signaled() + 1)));
         $commentMngr->update($comment);
     }
+    
+    public function update() {
+        $commentMngr = new CommentManager();
+        
+        $datas['id'] = abs((int) $_POST['editedId']);
+        $datas['content'] = (string) $_POST['editedComment'];
+        
+        $updatedComment = $commentMngr->get($datas['id']);
+        $updatedComment->hydrate($datas);
+        $commentMngr->update($updatedComment);
+    }
 }

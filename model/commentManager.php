@@ -18,8 +18,9 @@ class CommentManager extends Model {
     
     public function update(Comment $comment) {
         $db = new Db();
+        $publication_date = date('Y\-m\-d H\:i\:s', $comment->publication_date());
         $query = $db->db()->prepare('UPDATE comments SET chapter_id = :chapter_id, author = :author, publication_date = :publication_date, content = :content, moderated = :moderated, signaled = :signaled WHERE id = :id');
-        $query->execute(array('id' => $comment->id(), 'chapter_id' => $comment->chapter_id(), 'author' => $comment->author(), 'publication_date' => $comment->publication_date(), 'content' => $comment->content(), 'moderated' => $comment->moderated(), 'signaled' => $comment->signaled()));
+        $query->execute(array('id' => $comment->id(), 'chapter_id' => $comment->chapter_id(), 'author' => $comment->author(), 'publication_date' => $publication_date, 'content' => $comment->content(), 'moderated' => $comment->moderated(), 'signaled' => $comment->signaled()));
         unset($db);
     }
     

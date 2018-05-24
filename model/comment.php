@@ -27,7 +27,7 @@ class Comment extends Model {
     public function publication_date(bool $humanFormat = false) {
         $publication_date = $this->_publication_date;
         if ($humanFormat) {
-            $publication_date = date('\l\e d/m/Y \à h\hi', $publication_date);
+            $publication_date = date('\l\e d/m/Y \à H\hi', $publication_date);
         }
         return $publication_date;
     }
@@ -48,24 +48,19 @@ class Comment extends Model {
         }
     }
     
-    // (Limited to 20 characters.)
     public function setAuthor($author) {
         if (is_string($author)) {
-            $this->_author = substr($author, 0, 20);
+            $this->_author = $author;
         }
     }
     
     public function setPublication_date($publication_date) {
-        $publication_date = (int) $publication_date;
-        if ($publication_date > 0) {
-            $this->_publication_date = $publication_date;
-        }
+        $this->_publication_date = strtotime($publication_date);
     }
     
-    // (Limited to 250 characters.)
     public function setContent($content) {
         if (is_string($content)) {
-            $this->_content = substr($content, 0, 250);
+            $this->_content = $content;
         }        
     }
     

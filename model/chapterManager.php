@@ -10,7 +10,7 @@ class ChapterManager extends Model {
     // Add a new empty chapter to the database and return it.
     public function add() {
         $db = new Db();
-        $query = $db->db()->query("INSERT INTO chapters(title, content, publication_date, published) VALUES('', '', 0, 0)");
+        $query = $db->db()->query("INSERT INTO chapters(title, content, published) VALUES('', '', 0)");
         $query = $db->db()->query('SELECT * FROM chapters ORDER BY id DESC LIMIT 1');
         $chapterDatas = $query->fetch();
         $query->closeCursor();
@@ -22,8 +22,9 @@ class ChapterManager extends Model {
     // Update a pre-existing chapter.
     public function update(Chapter $chapter) {
         $db = new Db();
-        $query = $db->db()->prepare('UPDATE chapters SET content = :content, title = :title, published = :published WHERE id = :id');
-        $query->execute(array('id' => $chapter->id(), 'title' => $chapter->title(), 'content' => $chapter->content(), 'published' => $chapter->published()));
+        $publication_date = date('Y\-m\-d H\:i\:s', $chapter->publication_date());
+        $query = $db->db()->prepare('UPDATE chapters SET content = :content, number = :number, title = :title, publication_date = :publication_date, published = :published WHERE id = :id');
+        $query->execute(array('id' => $chapter->id(), 'number' => $chapter->number(), 'title' => $chapter->title(), 'content' => $chapter->content(), 'publication_date' => $publication_date, 'published' => $chapter->published()));
         unset($db);
     }
     
@@ -40,23 +41,23 @@ class ChapterManager extends Model {
     }
     
     // Return a list of chapters (only the published ones or all of them).
-    public function getList(int $offset, int $number, bool $publishedOnly, bool $sortByDate, bool $ascending, bool $extractsOnly) {
+    public function getList(int $offset, int $number, bool $publishedOnly/*, bool $sortByDate*/, bool $ascending, bool $extractsOnly) {
         $chapters = [];
-        $sorting;
+        //$sorting;
         $order;
         $condition;
         
         $db = new Db();
         
-        if ($sortByDate) { $sorting = 'publication_date'; } else { $sorting = 'id'; }
-        if ($ascending) { $order = ''; } else { $order = 'DESC'; }
+        //if ($sortByDate) { $sorting = 'publication_date'; } else { $sorting = 'id'; }
+        if ($ascending) { $order = 'ASC'; } else { $order = 'DESC'; }
         if ($publishedOnly) { $condition = 'WHERE published = true'; } else { $condition = ''; }
         
         //$query = $db->db()->prepare("SELECT * FROM chapters ORDER BY :sorting :order LIMIT :offset, :number");
         //$chapterDatas = $query->execute(array('sorting' => $sorting, 'order' => $order, 'offset' => $offset, 'number' => $number));
         
         
-        $query = $db->db()->prepare('SELECT * FROM chapters ' . $condition . ' ORDER BY ' . $sorting . ' ' . $order . ' LIMIT ' . $offset . ' , ' . $number);
+        $query = $db->db()->prepare('SELECT * FROM chapters ' . $condition . ' ORDER BY number ' . $order . ' LIMIT ' . $offset . ' , ' . $number);
         $chapterDatas = $query->execute();
         
         /*$query = $db->db()->prepare('SELECT * FROM chapters ORDER BY :sorting :order LIMIT :offset , :count'); // . $sorting . ' ' . $order . ' LIMIT ' . $offset . ' , ' . $number);

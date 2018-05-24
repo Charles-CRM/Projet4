@@ -64,7 +64,7 @@ class ChapterController {
             $offset = $currentPageIx * $chaptersPerPage;
         }
         
-        $chapters = $chapterMngr->getList($offset, $chaptersPerPage, true, false, false, true);
+        $chapters = $chapterMngr->getList($offset, $chaptersPerPage, true, false, true);
 
         require('./view/homepage.php');
     }

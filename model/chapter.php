@@ -6,6 +6,7 @@ require_once('./model/commentManager.php');
 
 class Chapter extends Model {
     private $_id;
+    private $_number;
     private $_title;
     private $_content;
     private $_publication_date;
@@ -20,6 +21,7 @@ class Chapter extends Model {
     
     // Getters
     public function id() { return $this->_id; }
+    public function number() { return $this->_number; }
     public function title() { return $this->_title; }
     public function content() { return $this->_content; }
     public function published() { return $this->_published; }
@@ -41,6 +43,15 @@ class Chapter extends Model {
         }
     }
     
+    public function setNumber($number) {
+        $number = (int) $number;
+        if ($number > 0) {
+            $this->_number = $number;
+        } else {
+            $this->_number = 0;
+        }
+    }
+    
     public function setTitle($title) {
         if (is_string($title)) {
             $this->_title = $title;
@@ -54,10 +65,7 @@ class Chapter extends Model {
     }
     
     public function setPublication_date($publication_date) {
-        $publication_date = (int) $publication_date;
-        if ($publication_date > 0) {
-            $this->_publication_date = $publication_date;
-        }
+        $this->_publication_date = strtotime($publication_date);
     }
     
     public function setPublished($published) {

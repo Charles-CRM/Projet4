@@ -14,6 +14,8 @@ $chapterCtrl = new ChapterController();
 $commentCtrl = new CommentController();
 $loginCtrl = new LoginController();
 
+$error;
+
 
 
 if (array_key_exists('disconnection', $_POST)) {
@@ -35,21 +37,28 @@ if (isset($_GET['admin'])) {
         $adminCtrl->updateCommentsModeration();
     }
     
-    if (array_key_exists('newChapter', $_POST)) {
-        $adminCtrl->newChapter();
+    if (array_key_exists('editedComment', $_POST)
+        && array_key_exists('editedId', $_POST)) {
+        $commentCtrl->update();
     }
-
-    if (array_key_exists('editedContent', $_POST) && array_key_exists('editedId', $_POST)) {
-        $adminCtrl->update();
+    
+    if (array_key_exists('editedContent', $_POST)
+        && array_key_exists('editedId', $_POST)
+        && array_key_exists('editedNumber', $_POST)
+        && array_key_exists('editedTitle', $_POST)) {
+        if ($_POST['editedId'] == 'new') {
+            $adminCtrl->newChapter();
+        } else {
+            $adminCtrl->update();
+        }
     }
 
     if (empty($_SESSION['username'])) {
         $loginCtrl->display();
     } else {
-        if (isset($_GET['toedit']) && isset($_GET['id'])
-           && !array_key_exists('editionSaveAndQuit', $_POST)) {
-            $adminCtrl->edit($_GET['toedit'], $_GET['id']);
-        } else if (!array_key_exists('newChapter', $_POST)){
+        if (isset($_GET['toedit']) && !array_key_exists('editionSaveAndQuit', $_POST)) {
+            $adminCtrl->edit();
+        } else {
             $adminCtrl->display();
         }
     }
