@@ -3,7 +3,7 @@ require_once('./model/model.php');
 
 
 
-class Admin extends Model {
+class User extends Model {
     private $_id;
     private $_username;
     private $_password_hash;

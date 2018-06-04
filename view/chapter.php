@@ -1,18 +1,29 @@
+<!--**********************************************************************************
+
+                                    Single chater page
+
+***********************************************************************************-->
+
+<?php include('./view/background.php'); ?>
+
+
+<!--****************************   Chapter list   *********************************-->
+
+
 <?php
-    include('./view/background.php');
-
-
     if (!empty($chapter))
     {
 ?>
-
-    
     <div id='chapter'>
         <span id='chapterPublicationDate'>Publié <?= $chapter->publication_date(true) ?></span>
         <span id='chapterNumber'><?= $chapter->number() ?></span>
         <h3><?= $chapter->title() ?></h3>
         <p><?= $chapter->content() ?></p>
     </div>
+
+
+<!--****************************   Comment writing field   ************************-->
+
 
     <form id='newCommentForm' method='post' action='.<?= $_SERVER['REQUEST_URI'] ?>#newCommentForm'>
         <label for='newCommentAuthor'>Pseudo :</label>
@@ -24,7 +35,11 @@
         </div>
     </form>
 
-    <?php if (count($comments) > 0) { ?>
+
+<!--****************************   Signaled comments list   ***********************-->
+
+
+    <?php if (!empty($comments)) { ?>
     
     <section id='commentsListSection'>
     

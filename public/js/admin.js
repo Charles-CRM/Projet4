@@ -13,36 +13,14 @@ tinymce.init({
 var commentEditionField = document.getElementById('editedComment');
 var commentIdField = document.getElementById('editedCommentId');
 var comments = document.getElementsByClassName('comment');
-var ignoreButtons = document.getElementsByClassName('ignoreButton');
-var deleteButtons = document.getElementsByClassName('deleteButton');
 
+// Display a comment content into a small edition field when the comment is clicked on.
 for(let i = 0; i < comments.length; i++) {
     comments[i].addEventListener('click', function() {
-        var id = comments.item(i).id;
+        var id = this.id;
         id = id.slice(id.indexOf('-') + 1);
 
-        commentIdField.setAttribute('value', id);
-        commentEditionField.innerText = comments[i].innerText;
+        commentIdField.value = id;
+        commentEditionField.value = this.innerText;
     });
 }
-
-
-for(let i = 0; i < ignoreButtons.length; i++) {
-    ignoreButtons[i].addEventListener('click', function() {
-        var name = ignoreButtons[i].getAttribute('name');
-        id = name.slice(name.indexOf('-') + 1);
-
-        
-    });
-}
-
-for(let i = 0; i < deleteButtons.length; i++) {
-    deleteButtons[i].addEventListener('click', function() {
-        var name = deleteButtons[i].getAttribute('name');
-        id = name.slice(name.indexOf('-') + 1);
-
-        
-    });
-}
-
-

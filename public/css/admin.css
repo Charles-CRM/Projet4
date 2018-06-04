@@ -1,0 +1,104 @@
+
+
+#adminChaptersList {
+    text-align: right;
+}
+
+.formTableContainer, .tableContainer {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 20px;
+    border: 6px #C2CFDB dashed;
+}
+
+.tableContainer {
+    width: calc(100% - 80px);
+    margin: 0px 40px 40px 40px;
+}
+
+#adminChaptersList table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#adminChaptersList thead > tr {
+    height: 40px;
+}
+
+#adminChaptersList tr:nth-child(even) {
+    background-color: rgba(144, 94, 70, 0.06);
+}
+
+#adminChaptersList tbody > tr:hover {
+    background-color: #C2CFDB;
+}
+
+#adminChaptersList th {
+    text-align: center;
+    color: #333;
+}
+
+#adminChaptersList td {
+    width: 40px;
+    text-align: center;
+}
+
+#adminChaptersList td:first-of-type {
+    width: auto;
+    text-align: left;
+    padding: 5px 20px;
+}
+
+#adminCommentsList td:nth-of-type(3) {
+    width: auto;
+    text-align: justify;
+    padding: 5px 20px;
+}
+
+table a {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    text-decoration: none;
+}
+
+table > caption {
+    text-align: left;
+    font-size: 1.4rem;
+    color: #AAA;
+}
+
+#editedTitle, #editedNumber {
+    box-sizing: border-box;
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 5px 0px 5px 50px;
+    border: 1px #BBB solid;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+}
+
+#editedNumber {
+    width: 40px;
+    padding: 5px;
+    margin-left: 50px;
+    text-align: center;
+}
+
+#adminComment > label {
+    text-indent: 20px;
+}
+
+#editedComment, #newCommentContent {
+    box-sizing: border-box;
+    width: 100%;
+    height: 120px;
+    border: 1px #BBB solid;
+    resize: none;
+    padding: 5px 10px;
+    color: #333;
+}
+
+#signaledCommentsTableContainer {
+    margin: 0px;
+    width: 100%;
+}

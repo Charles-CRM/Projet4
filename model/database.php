@@ -7,7 +7,7 @@ class Db {
         $this->connect();
     }
     
-    // getter
+    // Getter
     public function db() { return $this->_db; }
     
     

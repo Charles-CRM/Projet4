@@ -20,12 +20,12 @@ class Chapter extends Model {
     }
     
     // Getters
-    public function id() { return $this->_id; }
-    public function number() { return $this->_number; }
-    public function title() { return $this->_title; }
-    public function content() { return $this->_content; }
-    public function published() { return $this->_published; }
-    public function commentsNbr() { return $this->_commentsNbr; }
+    public function id()            { return $this->_id;            }
+    public function number()        { return $this->_number;        }
+    public function title()         { return $this->_title;         }
+    public function content()       { return $this->_content;       }
+    public function published()     { return $this->_published;     }
+    public function commentsNbr()   { return $this->_commentsNbr;   }
     public function publication_date(bool $humanFormat = false) {
         $publication_date = $this->_publication_date;
         if ($humanFormat) {
@@ -37,31 +37,19 @@ class Chapter extends Model {
     
     // Setters
     public function setId($id) {
-        $id = (int) $id;
-        if ($id > 0) {
-            $this->_id = $id;
-        }
+        $this->_id = abs((int) $id);
     }
     
     public function setNumber($number) {
-        $number = (int) $number;
-        if ($number > 0) {
-            $this->_number = $number;
-        } else {
-            $this->_number = 0;
-        }
+        $this->_number = abs((int) $number);
     }
     
     public function setTitle($title) {
-        if (is_string($title)) {
-            $this->_title = $title;
-        }
+        $this->_title = (string) $title;
     }
     
     public function setContent($content) {
-        if (is_string($content)) {
-            $this->_content = $content;
-        }        
+        $this->_content = (string) $content; 
     }
     
     public function setPublication_date($publication_date) {
@@ -69,12 +57,13 @@ class Chapter extends Model {
     }
     
     public function setPublished($published) {
-        $published = boolval($published);
-        $this->_published = $published;
+        $this->_published = (bool) $published;
     }
     
     public function setcommentsNbr() {
         $commentMngr = new CommentManager();
-        $this->_commentsNbr = $commentMngr->getCommentsCount($this->_id);
+        if ($this->id() != null) {
+            $this->_commentsNbr = $commentMngr->getCommentsCount($this->_id);
+        }
     }
 }

@@ -1,0 +1,46 @@
+#pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0px;
+    border-collapse: collapse;
+    border-spacing: 0px;
+}
+
+#pagination a {
+    color: #777;
+    text-decoration: none;
+    text-align: center;
+}
+
+#pagination td {
+    position: relative;
+    width: 20px;
+    height: 25px;
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
+}
+
+#pagination .fa-caret-left, #pagination .fa-caret-right {
+    font-size: 1.8rem;
+}
+
+#pagination .fa-step-backward, #pagination .fa-step-forward {
+    position: relative;
+    top: 1px;
+    font-size: 1.2rem;
+}
+
+#pagination .fa-circle {
+    display: block;
+    font-size: 0.75rem;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.currentPage {
+    color: rgba(144, 94, 70, 0.7);
+}

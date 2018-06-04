@@ -1,4 +1,13 @@
+<!--**********************************************************************************
+
+                                    Admin panel
+
+***********************************************************************************-->
+
 <?php include('./view/background.php'); ?>
+
+
+<!--****************************   Pseudo-header   ********************************-->
 
 
     <div class='buttonsBox'>
@@ -15,6 +24,10 @@
         </div>
     <?php } ?>
     
+
+<!--****************************   Chapter list   *********************************-->
+
+
     <form id='adminChaptersList' method='post' action='/?admin'>
         <input type='hidden' name='chaptersPublicationInfos' value='save' />
         <div class='formTableContainer'>
@@ -30,10 +43,11 @@
             <tbody>
 
             <?php
-                foreach ($chapters as $chapter)
-                {
-                    if ($chapter->number() > 0) {
-                        $checked = $chapter->published() ? 'checked' : '';
+                if (!empty($chapters)) {
+                    foreach ($chapters as $chapter)
+                    {
+                        if ($chapter->number() > 0) {
+                            $checked = $chapter->published() ? 'checked' : '';
             ?>
 
                 <tr>
@@ -49,13 +63,13 @@
                 </tr>
 
             <?php
+                        }
                     }
-                }
-                
-                foreach ($chapters as $chapter)
-                {
-                    if ($chapter->number() == 0) {
-                        $checked = $chapter->published() ? 'checked' : '';
+
+                    foreach ($chapters as $chapter)
+                    {
+                        if ($chapter->number() == 0) {
+                            $checked = $chapter->published() ? 'checked' : '';
             ?>
 
                 <tr>
@@ -71,6 +85,7 @@
                 </tr>
 
             <?php
+                        }
                     }
                 }
             ?>
@@ -85,19 +100,16 @@
         </div>
     </form>
     
+
+<!--****************************   Comments list   ********************************-->
     
-    
-    
-    
-    
-    
-    <?php if (count($comments) > 0) { ?>
+
+    <?php if (!empty($comments)) { ?>
     
     <form id='adminComment' method='post' action='/?admin'>
         <input id='editedCommentId' name='editedId' type='hidden' />
         <label for='editedComment'>Commentaire sélectionné :</label>
-        <textarea id='editedComment' name='editedComment'>
-        </textarea>
+        <textarea id='editedComment' name='editedComment'></textarea>
         
         <div class='buttonsBox'>
             <input class='bigButton' type='submit' name='commentEditionSave' value='Sauvegarder'/>
@@ -105,7 +117,7 @@
     </form>
     
     <form method='post' action='/?admin'>
-    <div class='tableContainer'>
+    <div id='signaledCommentsTableContainer' class='tableContainer'>
         <table id='adminCommentsList'>
             <caption>Commentaires signalés</caption>
             <thead>
@@ -142,11 +154,10 @@
     
     <?php } ?>
     
-    
-    
-    
-    
-    
+
+<!--****************************   Scripts and footer   ***************************-->
+
+
     <script src='./public/js/tinymce/tinymce.min.js'></script>
     <script src='./public/js/admin.js'></script>
     

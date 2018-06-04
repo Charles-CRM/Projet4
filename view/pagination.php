@@ -1,9 +1,16 @@
+<!--**********************************************************************************
+
+                                     Pagination links
+
+***********************************************************************************-->
+
 <?php
     // $pagesCount and $currentPageIx must been already defined.
 
     $maxNbrOfPageLinks = 11;
     $pagesOffset = 0;
-
+    
+    // Calculation of the $pagesOffset.
     if ($pagesCount > $maxNbrOfPageLinks) {
         if ($currentPageIx <  ceil($maxNbrOfPageLinks / 2)) {
             $pagesOffset = 0;
@@ -19,6 +26,7 @@
 ?>
 
     <table id='pagination'>
+        <!-- Row with the dots and arrows -->
         <tr>
             <?php if ($currentPageIx == 0) { ?>
             <td><a href='<?= $paginationLinkBase ?>p=0<?= $paginationLinkOption ?>' target='_self'><i class='fas fa-step-backward hidden'></i></a></td>
@@ -46,6 +54,8 @@
                 <td><a href='<?= $paginationLinkBase ?>p=<?= ($pagesCount - 1) ?><?= $paginationLinkOption ?>' target='_self'><i class='fas fa-step-forward'></i></a></td>
             <?php } ?>
         </tr>
+        
+        <!-- Row with the pages numbers -->
         <tr>
             <td></td>
             <td></td>
@@ -63,7 +73,6 @@
             <td></td>
             <td></td>
         </tr>
-        
     </table>
 
 <?php } ?>

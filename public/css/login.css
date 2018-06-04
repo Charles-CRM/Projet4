@@ -1,0 +1,18 @@
+#loginForm {
+    margin-top: 50px;
+    text-align: center;
+}
+
+#loginForm input {
+    margin-bottom: 20px;
+    padding: 7px;
+}
+
+#loginForm label {
+    text-indent: initial;
+}
+
+#loginForm .bigButton {
+    display: block;
+    margin: 0px auto;
+}

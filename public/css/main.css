@@ -1,0 +1,66 @@
+@font-face {
+    font-family: 'Viper Nora';
+    src: url('../fonts/Viper Nora.woff');
+}
+
+@font-face {
+    font-family: 'Roboto Regular';
+    src: url('../fonts/Roboto-Regular.ttf');
+}
+
+
+
+
+* {
+    font-size: 1rem;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+p {
+    margin: 0px;
+    padding: 0px;
+    font-family: Garamond, serif;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 1.4rem;
+    color: #AAA; 
+    text-indent: 50px;
+}
+
+h2 {
+    margin: 20px 0px 40px 0px;
+    font-size: 2rem;
+    text-align: center;
+    color: #333;
+}
+
+form {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0px 40px;
+}
+
+
+
+.buttonsBox {
+    width: 100%;
+    text-align: right;
+}
+
+.bigButton {
+    margin: 20px 0px 20px 10px;
+    min-height: 30px;
+    padding: 7px;
+    border: 1px #888 solid;
+    border-radius: 8px;
+    background: linear-gradient(to bottom, #cfd9e3, #afc0d0);
+    font-family: 'Roboto Regular', 'Arial', sans-serif;
+    color: #555;
+}

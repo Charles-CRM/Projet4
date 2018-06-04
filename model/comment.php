@@ -18,12 +18,12 @@ class Comment extends Model {
     }
     
     // Getters
-    public function id() { return $this->_id; }
-    public function chapter_id() { return $this->_chapter_id; }
-    public function author() { return $this->_author; }
-    public function content() { return $this->_content; }
-    public function moderated() { return $this->_moderated; }
-    public function signaled() { return $this->_signaled; }
+    public function id()            { return $this->_id;        }
+    public function chapter_id()    { return $this->_chapter_id;}
+    public function author()        { return $this->_author;    }
+    public function content()       { return $this->_content;   }
+    public function moderated()     { return $this->_moderated; }
+    public function signaled()      { return $this->_signaled;  }
     public function publication_date(bool $humanFormat = false) {
         $publication_date = $this->_publication_date;
         if ($humanFormat) {
@@ -35,23 +35,15 @@ class Comment extends Model {
     
     // Setters
     public function setId($id) {
-        $id = (int) $id;
-        if ($id > 0) {
-            $this->_id = $id;
-        }
+        $this->_id = abs((int) $id);
     }
     
     public function setChapter_id($chapter_id) {
-        $chapter_id = (int) $chapter_id;
-        if ($chapter_id > 0) {
-            $this->_chapter_id = $chapter_id;
-        }
+        $this->_chapter_id = abs((int) $chapter_id);
     }
     
     public function setAuthor($author) {
-        if (is_string($author)) {
-            $this->_author = $author;
-        }
+        $this->_author = (string) $author;
     }
     
     public function setPublication_date($publication_date) {
@@ -59,20 +51,14 @@ class Comment extends Model {
     }
     
     public function setContent($content) {
-        if (is_string($content)) {
-            $this->_content = $content;
-        }        
+        $this->_content = (string) $content; 
     }
     
     public function setModerated($moderated) {
-        $moderated = boolval($moderated);
-        $this->_moderated = $moderated;
+        $this->_moderated = (bool) $moderated;
     }
     
     public function setSignaled($signaled) {
-        $signaled = (int) $signaled;
-        if ($signaled > 0) {
-            $this->_signaled = $signaled;
-        }
+        $this->_signaled = abs((int) $signaled);
     }
 }

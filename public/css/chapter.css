@@ -1,0 +1,103 @@
+        #chapter {
+            box-sizing: border-box;
+            width: 100%;
+            margin-top: 30px;
+            padding: 40px;
+            color: #333;
+        }
+
+            #chapterPublicationDate {
+                display: block;
+                width: 100%;
+                text-align: right;
+            }
+
+            #chapter > h3 {
+                width: 100%;
+                margin-bottom: 30px;
+                font-family: 'Viper Nora', 'Arial Black', sans-serif;
+                text-align: center;
+                font-size: 2rem;
+                color: #C2CFDB;
+            }
+
+#chapterNumber {
+    display: block;
+    width: 100%;
+    font-family: 'Viper Nora';
+    font-size: 3rem;
+    text-align: center;
+    color: #555;
+}
+
+#newCommentAuthor {
+    box-sizing: border-box;
+    width: 200px;
+    margin-bottom: 10px;
+    padding: 5px 10px;
+    border: 1px #BBB solid;
+    color: #333;
+}
+
+#chapterCommentsList {
+    box-sizing: border-box;
+    width: calc(100% - 80px);
+    margin: 0px 40px 40px 40px;
+    padding: 20px;
+    border: 6px #C2CFDB dashed;
+    list-style-type: none;
+}
+
+#chapterCommentsList > li:nth-child(even) {
+    background-color: rgba(144, 94, 70, 0.06);
+}
+
+#chapterCommentsList > li {
+    padding: 10px 20px;
+    border-bottom: 1px #C2CFDB solid;
+}
+
+#chapterCommentsList > li:last-child {
+    border-bottom: none;
+}
+
+.commentInfos {
+    position: relative;
+    margin-bottom: 3px;
+}
+
+.commentAuthor {
+    font-weight: bold;
+    margin-left: 30px;
+}
+
+.commentDate {
+    margin-left: 20px;
+    font-size: 0.8rem;
+    color: #888;
+}
+
+.commentContent {
+    text-indent: initial;
+}
+
+.commentSignalButton {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    color: #C2CFDB;
+}
+
+#chapterCommentsListLabel {
+    text-indent: 90px;
+}
+
+#editedComment, #newCommentContent {
+    box-sizing: border-box;
+    width: 100%;
+    height: 120px;
+    border: 1px #BBB solid;
+    resize: none;
+    padding: 5px 10px;
+    color: #333;
+}
