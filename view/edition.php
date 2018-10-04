@@ -7,18 +7,24 @@
 <?php include('./view/background.php'); ?>
 
 
-    <h2>Panneau d'administration</h2>
+    <a href='./?admin' target='_self'><h2>Panneau d'administration</h2></a>
+
+    <?php if (isset($GLOBALS['error']['adminTop'])) { ?>
+        <div class='errorBox'>
+            <span><?= $GLOBALS['error']['adminTop'] ?></span>
+        </div>
+    <?php } ?>
     
     <form id='adminEditionForm' method='post' action="/?admin&toedit=<?= $id ?>">
-        <input type='hidden' id='editedId' name='editedId' value="<?= $id ?>" />
+        <input type='hidden' id='editedId' name='editedId' value="<?= $id ?>" readonly />
             
         <label for='editedNumber'>Numéro :</label>
-        <input type='text' id='editedNumber' name='editedNumber' value="<?= isset($editedChapter) ? $editedChapter->number() : 0 ?>" required />
+        <input type='number' id='editedNumber' name='editedNumber' value="<?= isset($editedChapter) ? $editedChapter->number() : (isset($_POST['editedNumber']) ? $_POST['editedNumber'] : 0) ?>" min='0' step='1' required />
         <label for='editedTitle'>Titre :</label>
         <input type='text' id='editedTitle' name='editedTitle' value="<?= isset($editedChapter) ? $editedChapter->title() : '' ?>" required />
         <label for='editedContent'>Contenu :</label>
         <textarea id='editedContent' name='editedContent'>
-            <?= isset($editedChapter) ? $editedChapter->content() : '' ?>
+            <?= isset($editedChapter) ? $editedChapter->content() : (isset($_POST['editedContent']) ? $_POST['editedContent'] : '') ?>
         </textarea>
         
         <div class='buttonsBox'>

@@ -64,3 +64,27 @@ form {
     font-family: 'Roboto Regular', 'Arial', sans-serif;
     color: #555;
 }
+
+
+/* ****************************************************************************************
+
+										MEDIA QUERIES
+
+**************************************************************************************** */		
+
+
+@media all and (max-width: 1024px) /*Pour les demi-écrans et les tablettes*/
+{
+    
+}
+
+@media all and (max-device-width: 480px) /*Pour les smartphones*/
+{
+    label {
+        text-indent: 0px;
+    }
+    
+    form {
+        padding: 0px 20px;
+    }
+}

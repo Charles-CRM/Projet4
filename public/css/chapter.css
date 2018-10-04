@@ -42,7 +42,7 @@
 #chapterCommentsList {
     box-sizing: border-box;
     width: calc(100% - 80px);
-    margin: 0px 40px 40px 40px;
+    margin: 0px 40px 0px 40px;
     padding: 20px;
     border: 6px #C2CFDB dashed;
     list-style-type: none;
@@ -100,4 +100,46 @@
     resize: none;
     padding: 5px 10px;
     color: #333;
+}
+
+
+/* ****************************************************************************************
+
+										MEDIA QUERIES
+
+**************************************************************************************** */		
+
+
+@media all and (max-width: 1024px) /*Pour les demi-écrans et les tablettes*/
+{
+    
+}
+
+@media all and (max-device-width: 480px) /*Pour les smartphones*/
+{
+    #chapterPublicationDate {
+        margin-bottom: 20px;
+    }
+    
+    #chapter {
+        padding: 20px;
+    }
+    
+    #chapterCommentsList {
+        width: calc(100% - 40px);
+        margin: 0px 20px;
+        padding: 5px;
+    }
+    
+    #chapterCommentsListLabel {
+        text-indent: 20px;
+    }
+    
+    #chapterCommentsList > li {
+        padding: 10px 10px;
+    }
+    
+    .commentAuthor {
+        margin-left: 0px;
+    }
 }

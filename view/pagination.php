@@ -5,7 +5,7 @@
 ***********************************************************************************-->
 
 <?php
-    // $pagesCount and $currentPageIx must been already defined.
+    // $pagesCount, $currentPageIx, $paginationLinkBase, $pageGETparameter and $paginationLinkOption must been already defined.
 
     $maxNbrOfPageLinks = 11;
     $pagesOffset = 0;
@@ -25,33 +25,33 @@
     if ($pagesCount > 1) {
 ?>
 
-    <table id='pagination'>
+    <table class='pagination'>
         <!-- Row with the dots and arrows -->
         <tr>
             <?php if ($currentPageIx == 0) { ?>
-            <td><a href='<?= $paginationLinkBase ?>p=0<?= $paginationLinkOption ?>' target='_self'><i class='fas fa-step-backward hidden'></i></a></td>
-                <td><a href='#' target='_self'><i class='fas fa-caret-left hidden'></i></a></td>
+            <td><a href='<?= $paginationLinkBase ?><?= $pageGETparameter ?>=0<?= $paginationLinkOption ?>' target='_self'><span class='fas fa-step-backward hidden'></span></a></td>
+                <td><a href='#' target='_self'><span class='fas fa-caret-left hidden'></span></a></td>
             <?php } else { ?>
-                <td><a href='<?= $paginationLinkBase ?>p=0<?= $paginationLinkOption ?>' target='_self'><i class='fas fa-step-backward'></i></a></td>
-                <td><a href='<?= $paginationLinkBase ?>p=<?= ($currentPageIx - 1) ?><?= $paginationLinkOption ?>' target='_self'><i class='fas fa-caret-left'></i></a></td>
+                <td><a href='<?= $paginationLinkBase ?><?= $pageGETparameter ?>=0<?= $paginationLinkOption ?>' target='_self'><span class='fas fa-step-backward'></span></a></td>
+                <td><a href='<?= $paginationLinkBase ?><?= $pageGETparameter ?>=<?= ($currentPageIx - 1) ?><?= $paginationLinkOption ?>' target='_self'><span class='fas fa-caret-left'></span></a></td>
             <?php } ?>
 
             <?php $i = 0;
             while (($pagesOffset + $i) < $pagesCount && $i < $maxNbrOfPageLinks) {
                 if (($pagesOffset + $i) == $currentPageIx) { ?>
-                    <td><a href='<?= $paginationLinkBase ?>p=<?= ($pagesOffset + $i) ?><?= $paginationLinkOption ?>' target='_self' class='pageLink'><i class='fas fa-circle currentPage'></i></a></td>
+                    <td><a href='<?= $paginationLinkBase ?><?= $pageGETparameter ?>=<?= ($pagesOffset + $i) ?><?= $paginationLinkOption ?>' target='_self' class='pageLink'><span class='fas fa-circle currentPage'></span></a></td>
             <?php   } else { ?>
-                    <td><a href='<?= $paginationLinkBase ?>p=<?= ($pagesOffset + $i) ?><?= $paginationLinkOption ?>' target='_self' class='pageLink'><i class='fas fa-circle'></i></a></td>
+                    <td><a href='<?= $paginationLinkBase ?><?= $pageGETparameter ?>=<?= ($pagesOffset + $i) ?><?= $paginationLinkOption ?>' target='_self' class='pageLink'><span class='fas fa-circle'></span></a></td>
             <?php   }
                 $i++;
             } ?>
 
             <?php if ($currentPageIx == $pagesCount - 1) { ?>
-                <td><a href='#' target='_self'><i class='fas fa-caret-right hidden'></i></a></td>
-                <td><a href='<?= $paginationLinkBase ?>p=<?= ($pagesCount - 1) ?><?= $paginationLinkOption ?>' target='_self'><i class='fas fa-step-forward hidden'></i></a></td>
+                <td><a href='#' target='_self'><span class='fas fa-caret-right hidden'></span></a></td>
+                <td><a href='<?= $paginationLinkBase ?><?= $pageGETparameter ?>=<?= ($pagesCount - 1) ?><?= $paginationLinkOption ?>' target='_self'><span class='fas fa-step-forward hidden'></span></a></td>
             <?php } else { ?>
-                <td><a href='<?= $paginationLinkBase ?>p=<?= ($currentPageIx + 1) ?><?= $paginationLinkOption ?>' target='_self'><i class='fas fa-caret-right'></i></a></td>
-                <td><a href='<?= $paginationLinkBase ?>p=<?= ($pagesCount - 1) ?><?= $paginationLinkOption ?>' target='_self'><i class='fas fa-step-forward'></i></a></td>
+                <td><a href='<?= $paginationLinkBase ?><?= $pageGETparameter ?>=<?= ($currentPageIx + 1) ?><?= $paginationLinkOption ?>' target='_self'><span class='fas fa-caret-right'></span></a></td>
+                <td><a href='<?= $paginationLinkBase ?><?= $pageGETparameter ?>=<?= ($pagesCount - 1) ?><?= $paginationLinkOption ?>' target='_self'><span class='fas fa-step-forward'></span></a></td>
             <?php } ?>
         </tr>
         
@@ -63,9 +63,9 @@
             <?php $i = 0;
             while (($pagesOffset + $i) < $pagesCount && $i < $maxNbrOfPageLinks) {
                 if (($pagesOffset + $i) == $currentPageIx) { ?>
-                    <td><a href='<?= $paginationLinkBase ?>p=<?= ($pagesOffset + $i) ?><?= $paginationLinkOption ?>' target='_self' class='pageLink'><?= ($pagesOffset + $i + 1) ?></a></td>
+                    <td><a href='<?= $paginationLinkBase ?><?= $pageGETparameter ?>=<?= ($pagesOffset + $i) ?><?= $paginationLinkOption ?>' target='_self' class='pageLink'><?= ($pagesOffset + $i + 1) ?></a></td>
             <?php   } else { ?>
-                    <td><a href='<?= $paginationLinkBase ?>p=<?= ($pagesOffset + $i) ?><?= $paginationLinkOption ?>' target='_self' class='pageLink'><?= ($pagesOffset + $i + 1) ?></a></td>
+                    <td><a href='<?= $paginationLinkBase ?><?= $pageGETparameter ?>=<?= ($pagesOffset + $i) ?><?= $paginationLinkOption ?>' target='_self' class='pageLink'><?= ($pagesOffset + $i + 1) ?></a></td>
             <?php   }
                 $i++;
             } ?>

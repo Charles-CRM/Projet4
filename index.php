@@ -41,11 +41,15 @@ if (isset($_GET['admin'])) {
 
         if (array_key_exists('commentsModerationInfosSave', $_POST)) {
             $adminCtrl->updateCommentsModeration();
-        }
-
-        if (!empty($_POST['editedComment'])
-            && !empty($_POST['editedId'])) {
-            $adminCtrl->updateComment();
+        }        
+        
+        if (isset($_POST['editedComment'])) {
+            if (!empty(trim($_POST['editedComment']))
+                && !empty($_POST['editedId'])) {
+                $adminCtrl->updateComment();
+            } else if (!empty($_POST['editedId']) && empty(trim($_POST['editedComment']))) {
+                $GLOBALS['error']['adminComments'] = "Un commentaire ne peut pas être vide.";
+            }
         }
     
         if (array_key_exists('editedContent', $_POST)

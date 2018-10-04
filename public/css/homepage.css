@@ -80,3 +80,24 @@
     text-align: right;
     color: #555;
 }
+
+
+/* ****************************************************************************************
+
+										MEDIA QUERIES
+
+**************************************************************************************** */		
+
+
+@media all and (max-width: 1024px) /*Pour les demi-écrans et les tablettes*/
+{
+    
+}
+
+@media all and (max-device-width: 480px) /*Pour les smartphones*/
+{
+    .chapterNumber {
+        top: 25px;
+        left: 0px;
+    }
+}

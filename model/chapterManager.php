@@ -46,25 +46,32 @@ class ChapterManager extends Model {
     }
     
     // Return a list of chapters (only the published ones or all of them).
-    public function getList(int $offset, int $number, bool $publishedOnly, bool $ascending, bool $extractsOnly) {
+    public function getList(int $offset, int $length, bool $publishedOnly, bool $ascending, bool $extractsOnly) {
         $chapters = [];
         $order = $ascending ? 'ASC' : 'DESC';
-        $condition = $publishedOnly ? 'WHERE published = true' : '';
+        $condition = $publishedOnly ? 'WHERE published = true' : 'WHERE number != 0';
         
         $db = new Db();
         
-        $query = $db->db()->prepare('SELECT * FROM chapters ' . $condition . ' ORDER BY number ' . $order . ' LIMIT :offset , :number');
-        $query->bindParam(':offset', $offset, PDO::PARAM_INT);
-        $query->bindParam(':number', $number, PDO::PARAM_INT);
-        $chapterDatas = $query->execute();
+        $query = $db->db()->query('SELECT * FROM chapters ' . $condition . ' ORDER BY number ' . $order);
         
         while ($chapterDatas = $query->fetch()) {
             if ($extractsOnly) { $chapterDatas['content'] = $this->getExtract($chapterDatas['content']); }
             $chapters[] = new Chapter($chapterDatas);
         }
+        
+        if (!$publishedOnly) {
+            $query = $db->db()->query('SELECT * FROM chapters WHERE number = 0 ORDER BY id ASC');
+            $chapterDatas = $query->execute();
+
+            while ($chapterDatas = $query->fetch()) {
+                $chapters[] = new Chapter($chapterDatas);
+            }
+        }
+        
         unset($db);
         
-        return !empty($chapters) ? $chapters : false;
+        return !empty($chapters) ? array_slice($chapters, $offset, $length) : false;
     }
     
     // Delete a chapter.
@@ -81,9 +88,9 @@ class ChapterManager extends Model {
             
         $text = strip_tags($text);
         if (strlen($text) > $extractLength) {
-            $text = '<p>' . substr($text, 0, strpos($text, ' ', $extractLength)) . ' <strong>[...]</strong>' . '</p>';
+            $text = substr($text, 0, strpos($text, ' ', $extractLength)) . ' <strong>[...]</strong>';
         } else {
-            $text = '<p>' . $text . '</p>';
+            $text = $text;
         }
         
         return $text;
@@ -91,13 +98,23 @@ class ChapterManager extends Model {
     
     // Return the number of chapters (published or total) present in the database.
     public function getChaptersCount(bool $publishedOnly = true) {
-        $condition = $publishedOnly ? 'true' : 'false';
+        $condition = $publishedOnly ? 'WHERE published = true' : '';
         
         $db = new Db();
-        $query = $db->db()->query('SELECT COUNT(*) FROM chapters WHERE published = ' . $condition);
+        $query = $db->db()->query('SELECT COUNT(*) FROM chapters ' . $condition);
         $chaptersCount = $query->fetchColumn();
         unset($db);
         
         return $chaptersCount;
+    }
+    
+    // Check wether or not a number is already used for a chapter.
+    public function isNumberFree(int $number) {
+        $db = new Db();
+        $query = $db->db()->query('SELECT COUNT(*) FROM chapters WHERE number = ' . $number);
+        $chaptersCount = $query->fetchColumn();
+        unset($db);
+        
+        return ($chaptersCount == 0) ? true : false;
     }
 }

@@ -18,6 +18,7 @@ body {
     min-height: 100vh;
     margin: 0px auto;
     padding-top: 30px;
+    padding-bottom: 40px;
     border-left: 1px rgba(144, 94, 70, 0.2) solid;
     border-right: 1px rgba(144, 94, 70, 0.2) solid;
     background-color: rgba(255, 255, 255, 0.8);
@@ -67,4 +68,30 @@ body {
     border: 6px red dashed;
     text-align: center;
     color: red;
+}
+
+
+@media all and (max-width: 1024px) /*Pour les demi-écrans et les tablettes*/
+{
+    body {
+        background-image: none;
+        background-color: white;
+    }
+
+    #main {
+        width: 100%;
+        margin: 0px 0px;
+        border-left: none;
+        border-right: none;
+        background-color: white;
+    }
+    
+    h1 {
+        font-size: 14vw;
+    }
+}
+
+@media all and (max-device-width: 480px) /*Pour les smartphones*/
+{
+    
 }

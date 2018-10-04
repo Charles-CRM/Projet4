@@ -19,8 +19,21 @@
         <link rel="stylesheet" href="./public/css/<?= $stylesheet ?>.css" />
     
     <?php } ?>
+    
+    <link rel="apple-touch-icon" sizes="57x57" href="./public/images/ico/apple-touch/jf-57.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="./public/images/ico/apple-touch/jf-72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="./public/images/ico/apple-touch/jf-114.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="./public/images/ico/apple-touch/jf-144.png">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@jeanforteroche">
+    <meta name="og:locale" content="fr_FR">
+    <meta name="og:site_name" content="Billet simple pour l'Alaska - Jean Forteroche">
+    <meta property="og:title" content="Billet simple pour l'Alaska - Jean Forteroche">
+    <meta property="og:url" content="http://www.projet4.ch-essaisweb.fr/">
+    <meta property="og:type" content="website">
    
-    <link rel="icon" type="image/x-icon" href="./images/ico/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="./public/images/ico/favicon.ico" />
     <title><?= $GLOBALS['pageTitle'] ?></title>
     <meta name="description" content="Billet simple pour l'Alaska - Le livre en ligne de Jean Forteroche">
 </head>

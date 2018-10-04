@@ -48,20 +48,25 @@ class CommentManager extends Model {
     }
     
     // Get a list of comments (all the signaled ones or all the ones attached to a specific chapter)
-    public function getList(int $offset, int $number, int $chapterId = 1, bool $signaledOnly = false) {
+    public function getList(int $offset, int $number, int $chapterId = 0, bool $signaledOnly = false) {
         $comments = [];
         
         $db = new Db();
         
         if ($signaledOnly) {
             $condition = 'signaled != 0 AND moderated = false';
-            $order = '';
+            $order = 'publication_date';
         } else {
-            $condition = 'chapter_id = ' . $chapterId;
-            $order = 'DESC';
+            if ($chapterId != 0) {
+                $condition = 'chapter_id = ' . $chapterId;
+                $order = 'publication_date DESC';
+            } else {
+                $condition = '1';
+                $order = 'publication_date DESC';
+            }
         }
         
-        $query = $db->db()->prepare('SELECT * FROM comments WHERE ' . $condition . ' ORDER BY publication_date ' . $order . ' LIMIT :offset , :number');
+        $query = $db->db()->prepare('SELECT * FROM comments WHERE ' . $condition . ' ORDER BY ' . $order . ' LIMIT :offset , :number');
         $query->bindParam(':offset', $offset, PDO::PARAM_INT);
         $query->bindParam(':number', $number, PDO::PARAM_INT);
         $commentDatas = $query->execute();
@@ -82,9 +87,11 @@ class CommentManager extends Model {
     }
     
     // Return the number of comments on a specific chapter present in the database.
-    public function getCommentsCount(int $chapterId) {
+    public function getCommentsCount(int $chapterId, bool $signaledOnly = false) {
         $db = new Db();
-        $query = $db->db()->query('SELECT COUNT(*) FROM comments WHERE chapter_id = ' . $chapterId);
+        $condition = ($chapterId == 0) ? '' : ('WHERE chapter_id = ' . $chapterId);
+        $condition = ($signaledOnly == true) ? (!empty($condition) ? ($condition . ' AND signaled != 0') : ($condition . 'WHERE signaled != 0')) : $condition;
+        $query = $db->db()->query('SELECT COUNT(*) FROM comments ' . $condition);
         $commentsCount = $query->fetchColumn();
         unset($db);
         

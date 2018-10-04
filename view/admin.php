@@ -10,17 +10,17 @@
 <!--****************************   Pseudo-header   ********************************-->
 
 
-    <div class='buttonsBox'>
-        <form method='post' action='./'>
-            <input name='disconnection' class='bigButton' type='submit' value='Se déconnecter' />
-        </form>
-    </div>
+<div class='buttonsBox'>
+    <form method='post' action='./'>
+        <input name='disconnection' class='bigButton' type='submit' value='Se déconnecter' />
+    </form>
+</div>
    
-    <h2>Panneau d'administration</h2>
+<a href='./?admin' target='_self'><h2>Panneau d'administration</h2></a>
     
-    <?php if (isset($GLOBALS['error'])) { ?>
+    <?php if (isset($GLOBALS['error']['adminTop'])) { ?>
         <div class='errorBox'>
-            <span><?= $GLOBALS['error'] ?></span>
+            <span><?= $GLOBALS['error']['adminTop'] ?></span>
         </div>
     <?php } ?>
     
@@ -28,8 +28,18 @@
 <!--****************************   Chapter list   *********************************-->
 
 
-    <form id='adminChaptersList' method='post' action='/?admin'>
-        <input type='hidden' name='chaptersPublicationInfos' value='save' />
+    <?php
+        $pagesCount = $chaptersPagesCount;
+        $currentPageIx = $chaptersCurrentPageIx;
+        $paginationLinkBase = $chaptersPaginationLinkBase;
+        $pageGETparameter = $chaptersPageGETparameter;
+        $paginationLinkOption = $chaptersPaginationLinkOption;
+
+        include('./view/pagination.php');
+    ?>
+
+    <form id='adminChaptersList' method='post' action='/?admin&chap-p=<?= isset($_GET['chap-p']) ? abs((int) $_GET['chap-p']) : 0 ?>'>
+        <input type='hidden' name='chaptersPublicationInfos' value='save' readonly />
         <div class='formTableContainer'>
         <table>
             <caption>Liste des chapitres</caption>
@@ -99,10 +109,18 @@
             <input name='chaptersPublicationInfosSave' class='bigButton' type='submit' value='Sauvegarder' />
         </div>
     </form>
+
+    <?php include('./view/pagination.php'); ?>
     
 
 <!--****************************   Comments list   ********************************-->
     
+
+    <?php if (isset($GLOBALS['error']['adminComments'])) { ?>
+        <div class='errorBox'>
+            <span><?= $GLOBALS['error']['adminComments'] ?></span>
+        </div>
+    <?php } ?>
 
     <?php if (!empty($comments)) { ?>
     
@@ -116,41 +134,61 @@
         </div>
     </form>
     
-    <form method='post' action='/?admin'>
-    <div id='signaledCommentsTableContainer' class='tableContainer'>
-        <table id='adminCommentsList'>
-            <caption>Commentaires signalés</caption>
-            <thead>
-                <tr>
-                    <th>Chap.</th>
-                    <th>Auteur</th>
-                    <th>Commentaire</th>
-                    <th>Ignor.</th>
-                    <th><i class="fas fa-trash-alt"></i></th>
-                </tr>
-            </thead>
-            <tbody>
-               
-               
-               <?php foreach($comments as $comment) { ?>
-               
-                <tr>
-                    <td><a href='./?chapter&id=<?= $comment->chapter_id() ?>' target=_blank><?= $comment->chapter_id() ?></a></td>
-                    <td><?= $comment->author() ?></td>
-                    <td id='comment-<?= $comment->id() ?>' class='comment'><?= $comment->content() ?></td>
-                    <td><input type='checkbox' class='ignoreButton' name='ignore-<?= $comment->id() ?>' /></td>
-                    <td><input type='checkbox' class='deleteButton' name='delete-<?= $comment->id() ?>' /></td>
-                </tr>
+    <section id='adminCommentsSection'>
+        
+        <?php
+            $pagesCount = $commentsPagesCount;
+            $currentPageIx = $commentsCurrentPageIx;
+            $paginationLinkBase = $commentsPaginationLinkBase;
+            $pageGETparameter = $commentsPageGETparameter;
+            $paginationLinkOption = $commentsPaginationLinkOption;
 
-               <?php } ?>
+            include('./view/pagination.php');
+        ?>
+        
+        <form method='post' action="<?php echo $onlySignaledComments ? './?admin' : './?admin&allcomments'; ?>">
+        <div id='signaledCommentsTableContainer' class='tableContainer'>
+            <table id='adminCommentsList'>
+                <caption>Commentaires signalés</caption>
+                <thead>
+                    <tr>
+                        <th>Chap.</th>
+                        <th>Auteur</th>
+                        <th>Commentaire</th>
+                        <th>Ignor.</th>
+                        <th><i class="fas fa-trash-alt"></i></th>
+                    </tr>
+                </thead>
+                <tbody>
 
-            </tbody>
-        </table>
-    </div>
-    <div class='buttonsBox'>
-        <input name='commentsModerationInfosSave' class='bigButton' type='submit' value='Sauvegarder' />
-    </div>
-    </form>
+
+                   <?php foreach($comments as $comment) { ?>
+
+                    <tr <?= (isset($_GET['allcomments']) && $comment->signaled() != 0 && $comment->moderated() == 0) ? "class='signaledComment'" : '' ?> >
+                        <td><a href='./?chapter&id=<?= $comment->chapter_id() ?>' target=_blank><?= $comment->chapter_id() ?></a></td>
+                        <td><?= $comment->author() ?></td>
+                        <td id='comment-<?= $comment->id() ?>' class='comment'><?= $comment->content() ?></td>
+                        <td><input type='checkbox' class='ignoreButton' name='ignore-<?= $comment->id() ?>' /></td>
+                        <td><input type='checkbox' class='deleteButton' name='delete-<?= $comment->id() ?>' /></td>
+                    </tr>
+
+                   <?php } ?>
+
+                </tbody>
+            </table>
+        </div>
+        <div class='buttonsBox'>
+            <?php echo $onlySignaledComments ?
+                "<input name='displayAllComments' formaction='./?admin&allcomments' class='bigButton' type='submit' value='Afficher tous les commentaires' />"
+                : "<input name='displayAllComments' formaction='./?admin' class='bigButton' type='submit' value=\"N'afficher que les commentaires signalés\" />";
+            ?>
+            <input name='commentsModerationInfosSave' class='bigButton' type='submit' value='Sauvegarder' />
+        </div>
+        </form>
+        
+        <?php include('./view/pagination.php'); ?>
+        
+    </section>
     
     <?php } ?>
     

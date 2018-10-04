@@ -20,6 +20,7 @@ class ChapterController {
             if ($chapter->published()) {
                 $paginationLinkBase = './?chapter&id=' . $id . '&';
                 $paginationLinkOption = '#commentsListSection';
+                $pageGETparameter = 'p';
 
                 $offset = 0;
                 $commentsPerPage = 10;
@@ -47,6 +48,8 @@ class ChapterController {
     function displayAll() {
         $paginationLinkBase = './?';
         $paginationLinkOption = '';
+        $pageGETparameter = 'p';
+        
         $offset = 0;
         $chaptersPerPage = 10;
         $currentPageIx = 0;
